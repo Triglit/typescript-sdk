@@ -115,7 +115,7 @@ describe('resource versions', () => {
 
   // Prism tests are disabled
   test.skip('list1: only required params', async () => {
-    const responsePromise = client.workflows.versions.list1({ workflowId: {} });
+    const responsePromise = client.workflows.versions.list1({ workflowId: 'workflowId' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -128,11 +128,11 @@ describe('resource versions', () => {
   // Prism tests are disabled
   test.skip('list1: required and optional params', async () => {
     const response = await client.workflows.versions.list1({
-      workflowId: {},
+      workflowId: 'workflowId',
       isActive: {},
       page: 0,
       pageSize: 20,
-      search: {},
+      search: 'search',
     });
   });
 
