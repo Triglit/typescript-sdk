@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 (2025-11-13)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/Triglit/typescript-sdk/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** adiciona custom-nodes ([98d9e0d](https://github.com/Triglit/typescript-sdk/commit/98d9e0dee4db0d4effcebc9fb466e8eb4c12cbe7))
+
 ## 0.1.0 (2025-11-13)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/Triglit/typescript-sdk/compare/v0.0.1...v0.1.0)

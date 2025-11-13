@@ -63,3 +63,13 @@ Methods:
 - <code title="post /v1/gateway/workflow-versions/{versionId}/publish">client.workflows.versions.<a href="./src/resources/workflows/versions.ts">publish</a>(versionID) -> VersionPublishResponse</code>
 - <code title="get /v1/gateway/workflows/versions/{versionId}">client.workflows.versions.<a href="./src/resources/workflows/versions.ts">retrieve0</a>(versionID) -> WorkflowVersion</code>
 - <code title="get /v1/gateway/workflow-versions/{versionId}">client.workflows.versions.<a href="./src/resources/workflows/versions.ts">retrieve1</a>(versionID) -> WorkflowVersion</code>
+
+# CustomNodes
+
+Types:
+
+- <code><a href="./src/resources/custom-nodes.ts">CustomNodeRetrieveRegistryResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/gateway/custom-nodes/registry">client.customNodes.<a href="./src/resources/custom-nodes.ts">retrieveRegistry</a>() -> CustomNodeRetrieveRegistryResponse</code>
