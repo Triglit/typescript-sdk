@@ -93,7 +93,7 @@ export interface WorkflowListParams extends PageBasedParams {
   /**
    * Search term to filter workflows
    */
-  search?: unknown;
+  search?: string;
 
   /**
    * Sub-tenant identifier

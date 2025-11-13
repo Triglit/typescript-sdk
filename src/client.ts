@@ -19,6 +19,7 @@ import { AbstractPage, type PageBasedParams, PageBasedResponse } from './core/pa
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
+import { CustomNodeRetrieveRegistryResponse, CustomNodes } from './resources/custom-nodes';
 import {
   SubTenant,
   SubTenantCreateParams,
@@ -747,11 +748,13 @@ export class Triglit {
   triggers: API.Triggers = new API.Triggers(this);
   subTenants: API.SubTenants = new API.SubTenants(this);
   workflows: API.Workflows = new API.Workflows(this);
+  customNodes: API.CustomNodes = new API.CustomNodes(this);
 }
 
 Triglit.Triggers = Triggers;
 Triglit.SubTenants = SubTenants;
 Triglit.Workflows = Workflows;
+Triglit.CustomNodes = CustomNodes;
 
 export declare namespace Triglit {
   export type RequestOptions = Opts.RequestOptions;
@@ -790,5 +793,10 @@ export declare namespace Triglit {
     type Workflow as Workflow,
     type WorkflowsPageBased as WorkflowsPageBased,
     type WorkflowListParams as WorkflowListParams,
+  };
+
+  export {
+    CustomNodes as CustomNodes,
+    type CustomNodeRetrieveRegistryResponse as CustomNodeRetrieveRegistryResponse,
   };
 }

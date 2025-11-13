@@ -1,4 +1,4 @@
-configured_endpoints: 25
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/triglit%2Ftriglit-4dc89f1822a960561344d2daee9dc5c1282631bf3bf4658c4e2d282717ad0e2f.yml
-openapi_spec_hash: 8dfe3633c38d4b22d9bf66c42ef3d60a
-config_hash: d2c2319152da0b059861aeda6e24df4e
+configured_endpoints: 26
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/triglit%2Ftriglit-3b69600129ed962487e690213078a814b004bcf18ff62c0b5a0adcb000d2f5a3.yml
+openapi_spec_hash: b75d45901dbbe0295a1eea4549eddb6b
+config_hash: 00ee3cfd4e2eec9d23a614ff4ce06af0

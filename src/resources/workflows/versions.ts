@@ -396,7 +396,7 @@ export interface VersionList1Params extends PageBasedParams {
   /**
    * Workflow identifier
    */
-  workflowId: unknown;
+  workflowId: string;
 
   /**
    * Filter by active versions
@@ -406,7 +406,7 @@ export interface VersionList1Params extends PageBasedParams {
   /**
    * Search for versions by name or description
    */
-  search?: unknown;
+  search?: string;
 }
 
 export declare namespace Versions {

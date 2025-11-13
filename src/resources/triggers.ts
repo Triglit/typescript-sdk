@@ -329,10 +329,6 @@ export interface TriggerResumeExecutionParams {
 
 export interface TriggerTriggerWebhookParams {
   eventData?: { [key: string]: unknown };
-
-  headers?: { [key: string]: string };
-
-  query?: { [key: string]: string };
 }
 
 export declare namespace Triggers {

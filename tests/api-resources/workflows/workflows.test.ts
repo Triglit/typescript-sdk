@@ -37,7 +37,7 @@ describe('resource workflows', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.workflows.list(
-        { isActive: true, page: 0, pageSize: 20, search: {}, subTenantId: 'subTenantId' },
+        { isActive: true, page: 0, pageSize: 20, search: 'search', subTenantId: 'subTenantId' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Triglit.NotFoundError);
