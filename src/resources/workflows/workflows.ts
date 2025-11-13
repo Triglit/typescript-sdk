@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../core/resource';
+import { APIResource } from '../../core/resource';
 import * as VersionsAPI from './versions';
 import {
   VersionCreateParams,
@@ -13,10 +13,10 @@ import {
   WorkflowVersionList,
   WorkflowVersionsPageBased,
 } from './versions';
-import { APIPromise } from '../../../core/api-promise';
-import { PageBased, type PageBasedParams, PagePromise } from '../../../core/pagination';
-import { RequestOptions } from '../../../internal/request-options';
-import { path } from '../../../internal/utils/path';
+import { APIPromise } from '../../core/api-promise';
+import { PageBased, type PageBasedParams, PagePromise } from '../../core/pagination';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class Workflows extends APIResource {
   versions: VersionsAPI.Versions = new VersionsAPI.Versions(this._client);

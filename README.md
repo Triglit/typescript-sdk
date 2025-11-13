@@ -29,14 +29,9 @@ const client = new Triglit({
   apiKey: process.env['TRIGLIT_API_KEY'], // This is the default and can be omitted
 });
 
-const trigger = await client.gateway.triggers.create({
-  config: {},
-  name: 'x',
-  type: 'event',
-  workflowVersionId: 'x',
-});
+const response = await client.triggers.triggerWebhook('trg_abc123def456');
 
-console.log(trigger.id);
+console.log(response.dedupeKey);
 ```
 
 ### Request & Response types
@@ -51,13 +46,8 @@ const client = new Triglit({
   apiKey: process.env['TRIGLIT_API_KEY'], // This is the default and can be omitted
 });
 
-const params: Triglit.Gateway.TriggerCreateParams = {
-  config: {},
-  name: 'x',
-  type: 'event',
-  workflowVersionId: 'x',
-};
-const trigger: Triglit.Gateway.Trigger = await client.gateway.triggers.create(params);
+const params: Triglit.TriggerCreateParams = { config: {}, name: 'x', type: 'event', workflowVersionId: 'x' };
+const trigger: Triglit.Trigger = await client.triggers.create(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -70,7 +60,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const trigger = await client.gateway.triggers
+const trigger = await client.triggers
   .create({ config: {}, name: 'x', type: 'event', workflowVersionId: 'x' })
   .catch(async (err) => {
     if (err instanceof Triglit.APIError) {
@@ -112,7 +102,7 @@ const client = new Triglit({
 });
 
 // Or, configure per-request:
-await client.gateway.triggers.create({ config: {}, name: 'x', type: 'event', workflowVersionId: 'x' }, {
+await client.triggers.create({ config: {}, name: 'x', type: 'event', workflowVersionId: 'x' }, {
   maxRetries: 5,
 });
 ```
@@ -129,7 +119,7 @@ const client = new Triglit({
 });
 
 // Override per-request:
-await client.gateway.triggers.create({ config: {}, name: 'x', type: 'event', workflowVersionId: 'x' }, {
+await client.triggers.create({ config: {}, name: 'x', type: 'event', workflowVersionId: 'x' }, {
   timeout: 5 * 1000,
 });
 ```
@@ -137,6 +127,37 @@ await client.gateway.triggers.create({ config: {}, name: 'x', type: 'event', wor
 On timeout, an `APIConnectionTimeoutError` is thrown.
 
 Note that requests which time out will be [retried twice by default](#retries).
+
+## Auto-pagination
+
+List methods in the Triglit API are paginated.
+You can use the `for await … of` syntax to iterate through items across all pages:
+
+```ts
+async function fetchAllTriggers(params) {
+  const allTriggers = [];
+  // Automatically fetches more pages as needed.
+  for await (const trigger of client.triggers.list({ pageSize: 20 })) {
+    allTriggers.push(trigger);
+  }
+  return allTriggers;
+}
+```
+
+Alternatively, you can request a single page at a time:
+
+```ts
+let page = await client.triggers.list({ pageSize: 20 });
+for (const trigger of page.data) {
+  console.log(trigger);
+}
+
+// Convenience methods are provided for manually paginating:
+while (page.hasNextPage()) {
+  page = await page.getNextPage();
+  // ...
+}
+```
 
 ## Advanced Usage
 
@@ -152,13 +173,13 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Triglit();
 
-const response = await client.gateway.triggers
+const response = await client.triggers
   .create({ config: {}, name: 'x', type: 'event', workflowVersionId: 'x' })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: trigger, response: raw } = await client.gateway.triggers
+const { data: trigger, response: raw } = await client.triggers
   .create({ config: {}, name: 'x', type: 'event', workflowVersionId: 'x' })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
@@ -242,7 +263,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.gateway.triggers.create({
+client.triggers.triggerWebhook({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',

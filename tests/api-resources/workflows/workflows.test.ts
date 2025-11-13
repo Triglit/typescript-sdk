@@ -10,7 +10,7 @@ const client = new Triglit({
 describe('resource workflows', () => {
   // Prism tests are disabled
   test.skip('retrieve', async () => {
-    const responsePromise = client.gateway.workflows.retrieve('wf_abc123def456');
+    const responsePromise = client.workflows.retrieve('wf_abc123def456');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource workflows', () => {
 
   // Prism tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.gateway.workflows.list();
+    const responsePromise = client.workflows.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -36,7 +36,7 @@ describe('resource workflows', () => {
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.gateway.workflows.list(
+      client.workflows.list(
         { isActive: true, page: 0, pageSize: 20, search: {}, subTenantId: 'subTenantId' },
         { path: '/_stainless_unknown_path' },
       ),
