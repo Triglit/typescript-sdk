@@ -4,12 +4,13 @@ export { Gateway } from './gateway';
 export {
   SubTenants,
   type SubTenant,
-  type SubTenantListResponse,
   type SubTenantListCombinedResponse,
   type SubTenantCreateParams,
   type SubTenantUpdateParams,
   type SubTenantListParams,
   type SubTenantListCombinedParams,
+  type SubTenantsPageBased,
+  type SubTenantListCombinedResponsesPageBased,
 } from './sub-tenants';
 export {
   Triggers,
@@ -19,12 +20,14 @@ export {
   type TriggerCreateParams,
   type TriggerUpdateParams,
   type TriggerListParams,
+  type TriggerListByWorkflowVersionParams,
   type TriggerResumeExecutionParams,
   type TriggerTriggerWebhookParams,
+  type TriggersPageBased,
 } from './triggers';
 export {
   Workflows,
   type Workflow,
-  type WorkflowListResponse,
   type WorkflowListParams,
+  type WorkflowsPageBased,
 } from './workflows/index';

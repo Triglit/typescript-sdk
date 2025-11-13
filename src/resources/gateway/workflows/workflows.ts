@@ -11,8 +11,10 @@ import {
   Versions,
   WorkflowVersion,
   WorkflowVersionList,
+  WorkflowVersionsPageBased,
 } from './versions';
 import { APIPromise } from '../../../core/api-promise';
+import { PageBased, type PageBasedParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -33,10 +35,12 @@ export class Workflows extends APIResource {
   list(
     query: WorkflowListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<WorkflowListResponse> {
-    return this._client.get('/v1/gateway/workflows', { query, ...options });
+  ): PagePromise<WorkflowsPageBased, Workflow> {
+    return this._client.getAPIList('/v1/gateway/workflows', PageBased<Workflow>, { query, ...options });
   }
 }
+
+export type WorkflowsPageBased = PageBased<Workflow>;
 
 export interface Workflow {
   /**
@@ -80,43 +84,11 @@ export interface Workflow {
   subTenantId?: string;
 }
 
-export interface WorkflowListResponse {
-  /**
-   * Number of items per page
-   */
-  limit: number;
-
-  /**
-   * Current page offset
-   */
-  offset: number;
-
-  /**
-   * Total number of workflows
-   */
-  total: number;
-
-  /**
-   * List of workflows
-   */
-  workflows: Array<Workflow>;
-}
-
-export interface WorkflowListParams {
+export interface WorkflowListParams extends PageBasedParams {
   /**
    * Whether the workflows should be active
    */
   isActive?: boolean;
-
-  /**
-   * Number of workflows to return
-   */
-  limit?: number;
-
-  /**
-   * Page number (0-indexed)
-   */
-  page?: number;
 
   /**
    * Search term to filter workflows
@@ -134,7 +106,7 @@ Workflows.Versions = Versions;
 export declare namespace Workflows {
   export {
     type Workflow as Workflow,
-    type WorkflowListResponse as WorkflowListResponse,
+    type WorkflowsPageBased as WorkflowsPageBased,
     type WorkflowListParams as WorkflowListParams,
   };
 
@@ -143,6 +115,7 @@ export declare namespace Workflows {
     type WorkflowVersion as WorkflowVersion,
     type WorkflowVersionList as WorkflowVersionList,
     type VersionPublishResponse as VersionPublishResponse,
+    type WorkflowVersionsPageBased as WorkflowVersionsPageBased,
     type VersionCreateParams as VersionCreateParams,
     type VersionUpdateParams as VersionUpdateParams,
     type VersionList0Params as VersionList0Params,

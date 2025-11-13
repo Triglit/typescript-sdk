@@ -86,7 +86,14 @@ describe('resource triggers', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.gateway.triggers.list(
-        { isActive: true, limit: 0, offset: 0, search: {}, type: 'event', workflowVersionId: {} },
+        {
+          isActive: true,
+          page: 0,
+          pageSize: 20,
+          search: 'search',
+          type: 'event',
+          workflowVersionId: 'workflowVersionId',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Triglit.NotFoundError);
@@ -114,6 +121,18 @@ describe('resource triggers', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('listByWorkflowVersion: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.gateway.triggers.listByWorkflowVersion(
+        'wfv_abc123def456',
+        { page: 0, pageSize: 20 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Triglit.NotFoundError);
   });
 
   // Prism tests are disabled

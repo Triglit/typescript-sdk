@@ -7,25 +7,28 @@ import {
   SubTenantCreateParams,
   SubTenantListCombinedParams,
   SubTenantListCombinedResponse,
+  SubTenantListCombinedResponsesPageBased,
   SubTenantListParams,
-  SubTenantListResponse,
   SubTenantUpdateParams,
   SubTenants,
+  SubTenantsPageBased,
 } from './sub-tenants';
 import * as TriggersAPI from './triggers';
 import {
   Trigger,
   TriggerCreateParams,
   TriggerList,
+  TriggerListByWorkflowVersionParams,
   TriggerListParams,
   TriggerResumeExecutionParams,
   TriggerTriggerWebhookParams,
   TriggerTriggerWebhookResponse,
   TriggerUpdateParams,
   Triggers,
+  TriggersPageBased,
 } from './triggers';
 import * as WorkflowsAPI from './workflows/workflows';
-import { Workflow, WorkflowListParams, WorkflowListResponse, Workflows } from './workflows/workflows';
+import { Workflow, WorkflowListParams, Workflows, WorkflowsPageBased } from './workflows/workflows';
 
 export class Gateway extends APIResource {
   triggers: TriggersAPI.Triggers = new TriggersAPI.Triggers(this._client);
@@ -43,9 +46,11 @@ export declare namespace Gateway {
     type Trigger as Trigger,
     type TriggerList as TriggerList,
     type TriggerTriggerWebhookResponse as TriggerTriggerWebhookResponse,
+    type TriggersPageBased as TriggersPageBased,
     type TriggerCreateParams as TriggerCreateParams,
     type TriggerUpdateParams as TriggerUpdateParams,
     type TriggerListParams as TriggerListParams,
+    type TriggerListByWorkflowVersionParams as TriggerListByWorkflowVersionParams,
     type TriggerResumeExecutionParams as TriggerResumeExecutionParams,
     type TriggerTriggerWebhookParams as TriggerTriggerWebhookParams,
   };
@@ -53,8 +58,9 @@ export declare namespace Gateway {
   export {
     SubTenants as SubTenants,
     type SubTenant as SubTenant,
-    type SubTenantListResponse as SubTenantListResponse,
     type SubTenantListCombinedResponse as SubTenantListCombinedResponse,
+    type SubTenantsPageBased as SubTenantsPageBased,
+    type SubTenantListCombinedResponsesPageBased as SubTenantListCombinedResponsesPageBased,
     type SubTenantCreateParams as SubTenantCreateParams,
     type SubTenantUpdateParams as SubTenantUpdateParams,
     type SubTenantListParams as SubTenantListParams,
@@ -64,7 +70,7 @@ export declare namespace Gateway {
   export {
     Workflows as Workflows,
     type Workflow as Workflow,
-    type WorkflowListResponse as WorkflowListResponse,
+    type WorkflowsPageBased as WorkflowsPageBased,
     type WorkflowListParams as WorkflowListParams,
   };
 }

@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { PageBased, type PageBasedParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -33,8 +34,11 @@ export class Triggers extends APIResource {
    * Retrieves a paginated list of triggers for the tenant. Accepts both public and
    * secret keys.
    */
-  list(query: TriggerListParams | null | undefined = {}, options?: RequestOptions): APIPromise<TriggerList> {
-    return this._client.get('/v1/gateway/triggers', { query, ...options });
+  list(
+    query: TriggerListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TriggersPageBased, Trigger> {
+    return this._client.getAPIList('/v1/gateway/triggers', PageBased<Trigger>, { query, ...options });
   }
 
   /**
@@ -48,11 +52,19 @@ export class Triggers extends APIResource {
   }
 
   /**
-   * Retrieves all triggers for a specific workflow version. Accepts both public and
-   * secret keys.
+   * Retrieves a paginated list of triggers for a specific workflow version. Accepts
+   * both public and secret keys.
    */
-  listByWorkflowVersion(workflowVersionID: string, options?: RequestOptions): APIPromise<TriggerList> {
-    return this._client.get(path`/v1/gateway/triggers/workflow-version/${workflowVersionID}`, options);
+  listByWorkflowVersion(
+    workflowVersionID: string,
+    query: TriggerListByWorkflowVersionParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TriggersPageBased, Trigger> {
+    return this._client.getAPIList(
+      path`/v1/gateway/triggers/workflow-version/${workflowVersionID}`,
+      PageBased<Trigger>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -78,6 +90,8 @@ export class Triggers extends APIResource {
     return this._client.post(path`/v1/gateway/triggers/${triggerID}/webhook`, { body, ...options });
   }
 }
+
+export type TriggersPageBased = PageBased<Trigger>;
 
 export interface Trigger {
   /**
@@ -133,24 +147,19 @@ export interface Trigger {
 
 export interface TriggerList {
   /**
-   * Number of items per page
-   */
-  limit: number;
-
-  /**
-   * Current page offset
-   */
-  offset: number;
-
-  /**
-   * Total number of triggers
-   */
-  total: number;
-
-  /**
    * List of triggers
    */
-  triggers: Array<Trigger>;
+  data: Array<Trigger>;
+
+  /**
+   * Last page number available (zero-based)
+   */
+  lastPage: number;
+
+  /**
+   * Current page number (zero-based)
+   */
+  page: number;
 }
 
 export interface TriggerTriggerWebhookResponse {
@@ -188,7 +197,7 @@ export namespace TriggerCreateParams {
 
     timeoutMs?: number;
 
-    webhookConfig?: unknown | null;
+    webhookConfig?: unknown;
   }
 
   export namespace Config {
@@ -250,7 +259,7 @@ export namespace TriggerUpdateParams {
 
     timeoutMs?: number;
 
-    webhookConfig?: unknown | null;
+    webhookConfig?: unknown;
   }
 
   export namespace Config {
@@ -286,26 +295,16 @@ export namespace TriggerUpdateParams {
   }
 }
 
-export interface TriggerListParams {
+export interface TriggerListParams extends PageBasedParams {
   /**
    * Whether the triggers should be active
    */
   isActive?: boolean;
 
   /**
-   * Number of triggers to return
-   */
-  limit?: number;
-
-  /**
-   * Offset of the triggers to return
-   */
-  offset?: number;
-
-  /**
    * Search term to filter triggers
    */
-  search?: unknown;
+  search?: string;
 
   /**
    * Type of the triggers to return
@@ -315,8 +314,10 @@ export interface TriggerListParams {
   /**
    * Workflow version identifier
    */
-  workflowVersionId?: unknown;
+  workflowVersionId?: string;
 }
+
+export interface TriggerListByWorkflowVersionParams extends PageBasedParams {}
 
 export interface TriggerResumeExecutionParams {
   resumeToken: string;
@@ -339,9 +340,11 @@ export declare namespace Triggers {
     type Trigger as Trigger,
     type TriggerList as TriggerList,
     type TriggerTriggerWebhookResponse as TriggerTriggerWebhookResponse,
+    type TriggersPageBased as TriggersPageBased,
     type TriggerCreateParams as TriggerCreateParams,
     type TriggerUpdateParams as TriggerUpdateParams,
     type TriggerListParams as TriggerListParams,
+    type TriggerListByWorkflowVersionParams as TriggerListByWorkflowVersionParams,
     type TriggerResumeExecutionParams as TriggerResumeExecutionParams,
     type TriggerTriggerWebhookParams as TriggerTriggerWebhookParams,
   };
