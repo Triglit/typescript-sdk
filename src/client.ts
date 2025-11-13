@@ -19,7 +19,31 @@ import { AbstractPage, type PageBasedParams, PageBasedResponse } from './core/pa
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { Gateway } from './resources/gateway/gateway';
+import {
+  SubTenant,
+  SubTenantCreateParams,
+  SubTenantListCombinedParams,
+  SubTenantListCombinedResponse,
+  SubTenantListCombinedResponsesPageBased,
+  SubTenantListParams,
+  SubTenantUpdateParams,
+  SubTenants,
+  SubTenantsPageBased,
+} from './resources/sub-tenants';
+import {
+  Trigger,
+  TriggerCreateParams,
+  TriggerList,
+  TriggerListByWorkflowVersionParams,
+  TriggerListParams,
+  TriggerResumeExecutionParams,
+  TriggerTriggerWebhookParams,
+  TriggerTriggerWebhookResponse,
+  TriggerUpdateParams,
+  Triggers,
+  TriggersPageBased,
+} from './resources/triggers';
+import { Workflow, WorkflowListParams, Workflows, WorkflowsPageBased } from './resources/workflows/workflows';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -720,10 +744,14 @@ export class Triglit {
 
   static toFile = Uploads.toFile;
 
-  gateway: API.Gateway = new API.Gateway(this);
+  triggers: API.Triggers = new API.Triggers(this);
+  subTenants: API.SubTenants = new API.SubTenants(this);
+  workflows: API.Workflows = new API.Workflows(this);
 }
 
-Triglit.Gateway = Gateway;
+Triglit.Triggers = Triggers;
+Triglit.SubTenants = SubTenants;
+Triglit.Workflows = Workflows;
 
 export declare namespace Triglit {
   export type RequestOptions = Opts.RequestOptions;
@@ -731,5 +759,36 @@ export declare namespace Triglit {
   export import PageBased = Pagination.PageBased;
   export { type PageBasedParams as PageBasedParams, type PageBasedResponse as PageBasedResponse };
 
-  export { Gateway as Gateway };
+  export {
+    Triggers as Triggers,
+    type Trigger as Trigger,
+    type TriggerList as TriggerList,
+    type TriggerTriggerWebhookResponse as TriggerTriggerWebhookResponse,
+    type TriggersPageBased as TriggersPageBased,
+    type TriggerCreateParams as TriggerCreateParams,
+    type TriggerUpdateParams as TriggerUpdateParams,
+    type TriggerListParams as TriggerListParams,
+    type TriggerListByWorkflowVersionParams as TriggerListByWorkflowVersionParams,
+    type TriggerResumeExecutionParams as TriggerResumeExecutionParams,
+    type TriggerTriggerWebhookParams as TriggerTriggerWebhookParams,
+  };
+
+  export {
+    SubTenants as SubTenants,
+    type SubTenant as SubTenant,
+    type SubTenantListCombinedResponse as SubTenantListCombinedResponse,
+    type SubTenantsPageBased as SubTenantsPageBased,
+    type SubTenantListCombinedResponsesPageBased as SubTenantListCombinedResponsesPageBased,
+    type SubTenantCreateParams as SubTenantCreateParams,
+    type SubTenantUpdateParams as SubTenantUpdateParams,
+    type SubTenantListParams as SubTenantListParams,
+    type SubTenantListCombinedParams as SubTenantListCombinedParams,
+  };
+
+  export {
+    Workflows as Workflows,
+    type Workflow as Workflow,
+    type WorkflowsPageBased as WorkflowsPageBased,
+    type WorkflowListParams as WorkflowListParams,
+  };
 }
