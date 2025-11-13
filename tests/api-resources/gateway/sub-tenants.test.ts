@@ -69,7 +69,7 @@ describe('resource subTenants', () => {
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.gateway.subTenants.list({ limit: 20, offset: 0 }, { path: '/_stainless_unknown_path' }),
+      client.gateway.subTenants.list({ page: 0, pageSize: 20 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Triglit.NotFoundError);
   });
 
@@ -101,7 +101,7 @@ describe('resource subTenants', () => {
   test.skip('listCombined: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.gateway.subTenants.listCombined({ limit: 20, offset: 0 }, { path: '/_stainless_unknown_path' }),
+      client.gateway.subTenants.listCombined({ page: 0, pageSize: 20 }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Triglit.NotFoundError);
   });
 

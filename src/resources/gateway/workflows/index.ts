@@ -9,5 +9,6 @@ export {
   type VersionUpdateParams,
   type VersionList0Params,
   type VersionList1Params,
+  type WorkflowVersionsPageBased,
 } from './versions';
-export { Workflows, type Workflow, type WorkflowListResponse, type WorkflowListParams } from './workflows';
+export { Workflows, type Workflow, type WorkflowListParams, type WorkflowsPageBased } from './workflows';

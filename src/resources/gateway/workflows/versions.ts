@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
+import { PageBased, type PageBasedParams, PagePromise } from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -44,16 +45,26 @@ export class Versions extends APIResource {
     workflowID: string,
     query: VersionList0Params | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<WorkflowVersionList> {
-    return this._client.get(path`/v1/gateway/workflows/${workflowID}/versions`, { query, ...options });
+  ): PagePromise<WorkflowVersionsPageBased, WorkflowVersion> {
+    return this._client.getAPIList(
+      path`/v1/gateway/workflows/${workflowID}/versions`,
+      PageBased<WorkflowVersion>,
+      { query, ...options },
+    );
   }
 
   /**
    * Retrieves a paginated list of workflow versions for a specific workflow. Accepts
    * both public and secret keys.
    */
-  list1(query: VersionList1Params, options?: RequestOptions): APIPromise<WorkflowVersionList> {
-    return this._client.get('/v1/gateway/workflow-versions', { query, ...options });
+  list1(
+    query: VersionList1Params,
+    options?: RequestOptions,
+  ): PagePromise<WorkflowVersionsPageBased, WorkflowVersion> {
+    return this._client.getAPIList('/v1/gateway/workflow-versions', PageBased<WorkflowVersion>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -80,6 +91,8 @@ export class Versions extends APIResource {
     return this._client.get(path`/v1/gateway/workflow-versions/${versionID}`, options);
   }
 }
+
+export type WorkflowVersionsPageBased = PageBased<WorkflowVersion>;
 
 export interface WorkflowVersion {
   /**
@@ -243,24 +256,19 @@ export namespace WorkflowVersion {
 
 export interface WorkflowVersionList {
   /**
-   * Number of items per page
-   */
-  limit: number;
-
-  /**
-   * Current page offset
-   */
-  offset: number;
-
-  /**
-   * Total number of versions
-   */
-  total: number;
-
-  /**
    * List of workflow versions
    */
-  versions: Array<WorkflowVersion>;
+  data: Array<WorkflowVersion>;
+
+  /**
+   * Last page number available (zero-based)
+   */
+  lastPage: number;
+
+  /**
+   * Current page number (zero-based)
+   */
+  page: number;
 }
 
 export interface VersionPublishResponse {
@@ -377,24 +385,14 @@ export namespace VersionUpdateParams {
   }
 }
 
-export interface VersionList0Params {
+export interface VersionList0Params extends PageBasedParams {
   /**
    * Whether the versions should be active
    */
   isActive?: boolean;
-
-  /**
-   * Number of versions to return
-   */
-  limit?: number;
-
-  /**
-   * Offset of the versions to return
-   */
-  offset?: number;
 }
 
-export interface VersionList1Params {
+export interface VersionList1Params extends PageBasedParams {
   /**
    * Workflow identifier
    */
@@ -404,16 +402,6 @@ export interface VersionList1Params {
    * Filter by active versions
    */
   isActive?: unknown;
-
-  /**
-   * Limit the number of versions to retrieve
-   */
-  limit?: unknown;
-
-  /**
-   * Offset the number of versions to retrieve
-   */
-  offset?: unknown;
 
   /**
    * Search for versions by name or description
@@ -426,6 +414,7 @@ export declare namespace Versions {
     type WorkflowVersion as WorkflowVersion,
     type WorkflowVersionList as WorkflowVersionList,
     type VersionPublishResponse as VersionPublishResponse,
+    type WorkflowVersionsPageBased as WorkflowVersionsPageBased,
     type VersionCreateParams as VersionCreateParams,
     type VersionUpdateParams as VersionUpdateParams,
     type VersionList0Params as VersionList0Params,

@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { PageBased, type PageBasedParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -39,8 +40,8 @@ export class SubTenants extends APIResource {
   list(
     query: SubTenantListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<SubTenantListResponse> {
-    return this._client.get('/v1/gateway/sub-tenants', { query, ...options });
+  ): PagePromise<SubTenantsPageBased, SubTenant> {
+    return this._client.getAPIList('/v1/gateway/sub-tenants', PageBased<SubTenant>, { query, ...options });
   }
 
   /**
@@ -62,8 +63,12 @@ export class SubTenants extends APIResource {
   listCombined(
     query: SubTenantListCombinedParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<SubTenantListCombinedResponse> {
-    return this._client.get('/v1/gateway/sub-tenants/combined', { query, ...options });
+  ): PagePromise<SubTenantListCombinedResponsesPageBased, SubTenantListCombinedResponse> {
+    return this._client.getAPIList(
+      '/v1/gateway/sub-tenants/combined',
+      PageBased<SubTenantListCombinedResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -74,6 +79,10 @@ export class SubTenants extends APIResource {
     return this._client.get(path`/v1/gateway/sub-tenants/by-id/${subTenantID}`, options);
   }
 }
+
+export type SubTenantsPageBased = PageBased<SubTenant>;
+
+export type SubTenantListCombinedResponsesPageBased = PageBased<SubTenantListCombinedResponse>;
 
 export interface SubTenant {
   /**
@@ -117,87 +126,41 @@ export interface SubTenant {
   description?: string;
 }
 
-export interface SubTenantListResponse {
-  /**
-   * Number of items per page
-   */
-  limit: number;
-
-  /**
-   * Current page offset
-   */
-  offset: number;
-
-  /**
-   * List of registered sub-tenants
-   */
-  subTenants: Array<SubTenant>;
-
-  /**
-   * Total number of registered sub-tenants
-   */
-  total: number;
-}
-
 export interface SubTenantListCombinedResponse {
   /**
-   * Number of items per page
+   * Whether this sub-tenant is registered
    */
-  limit: number;
+  isRegistered: boolean;
 
   /**
-   * Current page offset
+   * The sub-tenant identifier
    */
-  offset: number;
+  subTenantId: string;
 
   /**
-   * List of all sub-tenants (both registered and arbitrary/unregistered)
+   * Registration ID (only present if registered)
    */
-  subTenants: Array<SubTenantListCombinedResponse.SubTenant>;
+  id?: string;
 
   /**
-   * Total number of sub-tenants (registered + arbitrary)
+   * Creation timestamp (only present if registered)
    */
-  total: number;
-}
+  createdAt?: string;
 
-export namespace SubTenantListCombinedResponse {
-  export interface SubTenant {
-    /**
-     * Whether this sub-tenant is registered
-     */
-    isRegistered: boolean;
+  /**
+   * Description (only present if registered)
+   */
+  description?: string;
 
-    /**
-     * The sub-tenant identifier
-     */
-    subTenantId: string;
+  /**
+   * Display name (only present if registered)
+   */
+  name?: string;
 
-    /**
-     * Registration ID (only present if registered)
-     */
-    id?: string;
-
-    /**
-     * Creation timestamp (only present if registered)
-     */
-    createdAt?: string;
-
-    /**
-     * Description (only present if registered)
-     */
-    description?: string;
-
-    /**
-     * Display name (only present if registered)
-     */
-    name?: string;
-
-    /**
-     * Last update timestamp (only present if registered)
-     */
-    updatedAt?: string;
-  }
+  /**
+   * Last update timestamp (only present if registered)
+   */
+  updatedAt?: string;
 }
 
 export interface SubTenantCreateParams {
@@ -217,35 +180,16 @@ export interface SubTenantUpdateParams {
   name?: string;
 }
 
-export interface SubTenantListParams {
-  /**
-   * Limit for pagination
-   */
-  limit?: unknown;
+export interface SubTenantListParams extends PageBasedParams {}
 
-  /**
-   * Offset for pagination
-   */
-  offset?: unknown;
-}
-
-export interface SubTenantListCombinedParams {
-  /**
-   * Limit for pagination
-   */
-  limit?: unknown;
-
-  /**
-   * Offset for pagination
-   */
-  offset?: unknown;
-}
+export interface SubTenantListCombinedParams extends PageBasedParams {}
 
 export declare namespace SubTenants {
   export {
     type SubTenant as SubTenant,
-    type SubTenantListResponse as SubTenantListResponse,
     type SubTenantListCombinedResponse as SubTenantListCombinedResponse,
+    type SubTenantsPageBased as SubTenantsPageBased,
+    type SubTenantListCombinedResponsesPageBased as SubTenantListCombinedResponsesPageBased,
     type SubTenantCreateParams as SubTenantCreateParams,
     type SubTenantUpdateParams as SubTenantUpdateParams,
     type SubTenantListParams as SubTenantListParams,
