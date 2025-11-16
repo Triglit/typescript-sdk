@@ -127,7 +127,7 @@ export interface Trigger {
   /**
    * Trigger type
    */
-  type: 'event' | 'schedule' | 'webhook' | 'queue';
+  type: 'schedule' | 'webhook';
 
   /**
    * Last update timestamp
@@ -174,21 +174,13 @@ export interface TriggerCreateParams {
 
   name: string;
 
-  type: 'event' | 'schedule' | 'webhook' | 'queue';
+  type: 'schedule' | 'webhook';
 
   workflowVersionId: string;
 }
 
 export namespace TriggerCreateParams {
   export interface Config {
-    entityIdResolver?: string;
-
-    eventKeyGenerator?: string;
-
-    filters?: { [key: string]: unknown };
-
-    queueConfig?: Config.QueueConfig;
-
     rateLimit?: Config.RateLimit;
 
     retryPolicy?: Config.RetryPolicy;
@@ -197,18 +189,10 @@ export namespace TriggerCreateParams {
 
     timeoutMs?: number;
 
-    webhookConfig?: unknown;
+    webhookConfig?: Config.WebhookConfig | null;
   }
 
   export namespace Config {
-    export interface QueueConfig {
-      queueName: string;
-
-      batchSize?: number;
-
-      consumerGroup?: string;
-    }
-
     export interface RateLimit {
       maxRequests: number;
 
@@ -229,6 +213,10 @@ export namespace TriggerCreateParams {
       intervalMs?: number;
 
       timezone?: string;
+    }
+
+    export interface WebhookConfig {
+      event?: string;
     }
   }
 }
@@ -243,14 +231,6 @@ export interface TriggerUpdateParams {
 
 export namespace TriggerUpdateParams {
   export interface Config {
-    entityIdResolver?: string;
-
-    eventKeyGenerator?: string;
-
-    filters?: { [key: string]: unknown };
-
-    queueConfig?: Config.QueueConfig;
-
     rateLimit?: Config.RateLimit;
 
     retryPolicy?: Config.RetryPolicy;
@@ -259,18 +239,10 @@ export namespace TriggerUpdateParams {
 
     timeoutMs?: number;
 
-    webhookConfig?: unknown;
+    webhookConfig?: Config.WebhookConfig | null;
   }
 
   export namespace Config {
-    export interface QueueConfig {
-      queueName: string;
-
-      batchSize?: number;
-
-      consumerGroup?: string;
-    }
-
     export interface RateLimit {
       maxRequests: number;
 
@@ -291,6 +263,10 @@ export namespace TriggerUpdateParams {
       intervalMs?: number;
 
       timezone?: string;
+    }
+
+    export interface WebhookConfig {
+      event?: string;
     }
   }
 }
@@ -309,7 +285,7 @@ export interface TriggerListParams extends PageBasedParams {
   /**
    * Type of the triggers to return
    */
-  type?: 'event' | 'schedule' | 'webhook' | 'queue';
+  type?: 'schedule' | 'webhook';
 
   /**
    * Workflow version identifier
