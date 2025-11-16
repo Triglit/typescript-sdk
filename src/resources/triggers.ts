@@ -80,6 +80,18 @@ export class Triggers extends APIResource {
   }
 
   /**
+   * Finds and triggers all active webhook triggers matching the specified event and
+   * subTenantId (if provided). This is a helper endpoint to facilitate workflow
+   * initiation by event name instead of trigger ID.
+   */
+  triggerByEvent(
+    body: TriggerTriggerByEventParams,
+    options?: RequestOptions,
+  ): APIPromise<TriggerTriggerByEventResponse> {
+    return this._client.post('/v1/gateway/triggers/webhook/by-event', { body, ...options });
+  }
+
+  /**
    * Triggers a webhook trigger with event data.
    */
   triggerWebhook(
@@ -160,6 +172,32 @@ export interface TriggerList {
    * Current page number (zero-based)
    */
   page: number;
+}
+
+export interface TriggerTriggerByEventResponse {
+  /**
+   * Total number of triggers found and triggered
+   */
+  total: number;
+
+  /**
+   * List of triggered webhook triggers
+   */
+  triggers: Array<TriggerTriggerByEventResponse.Trigger>;
+}
+
+export namespace TriggerTriggerByEventResponse {
+  export interface Trigger {
+    /**
+     * Deduplication key
+     */
+    dedupeKey: string;
+
+    /**
+     * Trigger identifier
+     */
+    triggerId: string;
+  }
 }
 
 export interface TriggerTriggerWebhookResponse {
@@ -303,6 +341,14 @@ export interface TriggerResumeExecutionParams {
   input?: unknown;
 }
 
+export interface TriggerTriggerByEventParams {
+  event: string;
+
+  eventData?: { [key: string]: unknown };
+
+  subTenantId?: string;
+}
+
 export interface TriggerTriggerWebhookParams {
   eventData?: { [key: string]: unknown };
 }
@@ -311,6 +357,7 @@ export declare namespace Triggers {
   export {
     type Trigger as Trigger,
     type TriggerList as TriggerList,
+    type TriggerTriggerByEventResponse as TriggerTriggerByEventResponse,
     type TriggerTriggerWebhookResponse as TriggerTriggerWebhookResponse,
     type TriggersPageBased as TriggersPageBased,
     type TriggerCreateParams as TriggerCreateParams,
@@ -318,6 +365,7 @@ export declare namespace Triggers {
     type TriggerListParams as TriggerListParams,
     type TriggerListByWorkflowVersionParams as TriggerListByWorkflowVersionParams,
     type TriggerResumeExecutionParams as TriggerResumeExecutionParams,
+    type TriggerTriggerByEventParams as TriggerTriggerByEventParams,
     type TriggerTriggerWebhookParams as TriggerTriggerWebhookParams,
   };
 }
