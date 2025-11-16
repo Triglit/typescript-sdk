@@ -401,7 +401,7 @@ export interface VersionList1Params extends PageBasedParams {
   /**
    * Filter by active versions
    */
-  isActive?: unknown;
+  isActive?: boolean;
 
   /**
    * Search for versions by name or description

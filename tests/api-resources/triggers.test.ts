@@ -13,7 +13,7 @@ describe('resource triggers', () => {
     const responsePromise = client.triggers.create({
       config: {},
       name: 'x',
-      type: 'event',
+      type: 'schedule',
       workflowVersionId: 'x',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -29,18 +29,14 @@ describe('resource triggers', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.triggers.create({
       config: {
-        entityIdResolver: 'entityIdResolver',
-        eventKeyGenerator: 'eventKeyGenerator',
-        filters: { foo: 'bar' },
-        queueConfig: { queueName: 'x', batchSize: 1, consumerGroup: 'consumerGroup' },
         rateLimit: { maxRequests: 1, windowMs: 1000 },
         retryPolicy: { backoffMs: 100, maxBackoffMs: 1000, maxRetries: 0 },
         scheduleConfig: { cron: 'cron', intervalMs: 60000, timezone: 'timezone' },
         timeoutMs: 1000,
-        webhookConfig: {},
+        webhookConfig: { event: 'event' },
       },
       name: 'x',
-      type: 'event',
+      type: 'schedule',
       workflowVersionId: 'x',
     });
   });
@@ -91,7 +87,7 @@ describe('resource triggers', () => {
           page: 0,
           pageSize: 20,
           search: 'search',
-          type: 'event',
+          type: 'schedule',
           workflowVersionId: 'workflowVersionId',
         },
         { path: '/_stainless_unknown_path' },
