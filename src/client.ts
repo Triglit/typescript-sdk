@@ -37,6 +37,8 @@ import {
   TriggerListByWorkflowVersionParams,
   TriggerListParams,
   TriggerResumeExecutionParams,
+  TriggerTriggerByEventParams,
+  TriggerTriggerByEventResponse,
   TriggerTriggerWebhookParams,
   TriggerTriggerWebhookResponse,
   TriggerUpdateParams,
@@ -781,6 +783,7 @@ export declare namespace Triglit {
     Triggers as Triggers,
     type Trigger as Trigger,
     type TriggerList as TriggerList,
+    type TriggerTriggerByEventResponse as TriggerTriggerByEventResponse,
     type TriggerTriggerWebhookResponse as TriggerTriggerWebhookResponse,
     type TriggersPageBased as TriggersPageBased,
     type TriggerCreateParams as TriggerCreateParams,
@@ -788,6 +791,7 @@ export declare namespace Triglit {
     type TriggerListParams as TriggerListParams,
     type TriggerListByWorkflowVersionParams as TriggerListByWorkflowVersionParams,
     type TriggerResumeExecutionParams as TriggerResumeExecutionParams,
+    type TriggerTriggerByEventParams as TriggerTriggerByEventParams,
     type TriggerTriggerWebhookParams as TriggerTriggerWebhookParams,
   };
 

@@ -149,6 +149,27 @@ describe('resource triggers', () => {
   });
 
   // Prism tests are disabled
+  test.skip('triggerByEvent: only required params', async () => {
+    const responsePromise = client.triggers.triggerByEvent({ event: 'x' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('triggerByEvent: required and optional params', async () => {
+    const response = await client.triggers.triggerByEvent({
+      event: 'x',
+      eventData: { foo: 'bar' },
+      subTenantId: 'subTenantId',
+    });
+  });
+
+  // Prism tests are disabled
   test.skip('triggerWebhook', async () => {
     const responsePromise = client.triggers.triggerWebhook('trg_abc123def456', {});
     const rawResponse = await responsePromise.asResponse();

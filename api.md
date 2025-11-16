@@ -4,6 +4,7 @@ Types:
 
 - <code><a href="./src/resources/triggers.ts">Trigger</a></code>
 - <code><a href="./src/resources/triggers.ts">TriggerList</a></code>
+- <code><a href="./src/resources/triggers.ts">TriggerTriggerByEventResponse</a></code>
 - <code><a href="./src/resources/triggers.ts">TriggerTriggerWebhookResponse</a></code>
 
 Methods:
@@ -15,6 +16,7 @@ Methods:
 - <code title="delete /v1/gateway/triggers/{triggerId}">client.triggers.<a href="./src/resources/triggers.ts">delete</a>(triggerID) -> void</code>
 - <code title="get /v1/gateway/triggers/workflow-version/{workflowVersionId}">client.triggers.<a href="./src/resources/triggers.ts">listByWorkflowVersion</a>(workflowVersionID, { ...params }) -> TriggersPageBased</code>
 - <code title="post /v1/gateway/triggers/resume">client.triggers.<a href="./src/resources/triggers.ts">resumeExecution</a>({ ...params }) -> void</code>
+- <code title="post /v1/gateway/triggers/webhook/by-event">client.triggers.<a href="./src/resources/triggers.ts">triggerByEvent</a>({ ...params }) -> TriggerTriggerByEventResponse</code>
 - <code title="post /v1/gateway/triggers/{triggerId}/webhook">client.triggers.<a href="./src/resources/triggers.ts">triggerWebhook</a>(triggerID, { ...params }) -> TriggerTriggerWebhookResponse</code>
 
 # SubTenants
