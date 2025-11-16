@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1 (2025-11-16)
+
+Full Changelog: [v0.3.0...v0.3.1](https://github.com/Triglit/typescript-sdk/compare/v0.3.0...v0.3.1)
+
+### Features
+
+* **api:** adiciona endpoint para trigger por evento ([32e868e](https://github.com/Triglit/typescript-sdk/commit/32e868e5f77c9e92963d1ebcf72597f422894cd1))
+
 ## 0.3.0 (2025-11-16)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/Triglit/typescript-sdk/compare/v0.2.0...v0.3.0)
