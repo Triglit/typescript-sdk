@@ -129,7 +129,7 @@ describe('resource versions', () => {
   test.skip('list1: required and optional params', async () => {
     const response = await client.workflows.versions.list1({
       workflowId: 'workflowId',
-      isActive: {},
+      isActive: true,
       page: 0,
       pageSize: 20,
       search: 'search',
