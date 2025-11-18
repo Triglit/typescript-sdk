@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.4 (2025-11-18)
+
+Full Changelog: [v0.4.3...v0.4.4](https://github.com/Triglit/typescript-sdk/compare/v0.4.3...v0.4.4)
+
+### Features
+
+* **types:** atualiza type de request body do CNP ([b061b7e](https://github.com/Triglit/typescript-sdk/commit/b061b7e0a194ae72071c99f290f1a33349812477))
+
 ## 0.4.3 (2025-11-18)
 
 Full Changelog: [v0.4.2...v0.4.3](https://github.com/Triglit/typescript-sdk/compare/v0.4.2...v0.4.3)
