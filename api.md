@@ -44,8 +44,11 @@ Types:
 
 Methods:
 
+- <code title="post /v1/gateway/workflows">client.workflows.<a href="./src/resources/workflows/workflows.ts">create</a>({ ...params }) -> Workflow</code>
 - <code title="get /v1/gateway/workflows/{workflowId}">client.workflows.<a href="./src/resources/workflows/workflows.ts">retrieve</a>(workflowID) -> Workflow</code>
+- <code title="patch /v1/gateway/workflows/{workflowId}">client.workflows.<a href="./src/resources/workflows/workflows.ts">update</a>(workflowID, { ...params }) -> Workflow</code>
 - <code title="get /v1/gateway/workflows">client.workflows.<a href="./src/resources/workflows/workflows.ts">list</a>({ ...params }) -> WorkflowsPageBased</code>
+- <code title="delete /v1/gateway/workflows/{workflowId}">client.workflows.<a href="./src/resources/workflows/workflows.ts">delete</a>(workflowID) -> void</code>
 
 ## Versions
 
