@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.5 (2025-11-18)
+
+Full Changelog: [v0.4.4...v0.4.5](https://github.com/Triglit/typescript-sdk/compare/v0.4.4...v0.4.5)
+
+### Bug Fixes
+
+* **types:** corrige generics de type de request do cnp ([a1a67e3](https://github.com/Triglit/typescript-sdk/commit/a1a67e31a51a749346e142bc25667f3015a6d955))
+
 ## 0.4.4 (2025-11-18)
 
 Full Changelog: [v0.4.3...v0.4.4](https://github.com/Triglit/typescript-sdk/compare/v0.4.3...v0.4.4)
