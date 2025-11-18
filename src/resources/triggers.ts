@@ -218,45 +218,45 @@ export interface TriggerCreateParams {
 }
 
 export namespace TriggerCreateParams {
-	export interface Config {
-		rateLimit?: Config.RateLimit;
+  export interface Config {
+    rateLimit?: Config.RateLimit;
 
-		retryPolicy?: Config.RetryPolicy;
+    retryPolicy?: Config.RetryPolicy;
 
-		scheduleConfig?: Config.ScheduleConfig;
+    scheduleConfig?: Config.ScheduleConfig;
 
-		timeoutMs?: number;
+    timeoutMs?: number;
 
-		webhookConfig?: Config.WebhookConfig | null;
-	}
+    webhookConfig?: Config.WebhookConfig | null;
+  }
 
-	export namespace Config {
-		export interface RateLimit {
-			maxRequests: number;
+  export namespace Config {
+    export interface RateLimit {
+      maxRequests: number;
 
-			windowMs: number;
-		}
+      windowMs: number;
+    }
 
-		export interface RetryPolicy {
-			backoffMs: number;
+    export interface RetryPolicy {
+      backoffMs: number;
 
-			maxBackoffMs: number;
+      maxBackoffMs: number;
 
-			maxRetries: number;
-		}
+      maxRetries: number;
+    }
 
-		export interface ScheduleConfig {
-			cron?: string;
+    export interface ScheduleConfig {
+      cron?: string;
 
-			intervalMs?: number;
+      intervalMs?: number;
 
-			timezone?: string;
-		}
+      timezone?: string;
+    }
 
-		export interface WebhookConfig {
-			event?: string;
-		}
-	}
+    export interface WebhookConfig {
+      event?: string;
+    }
+  }
 }
 
 export interface TriggerUpdateParams {
@@ -268,45 +268,45 @@ export interface TriggerUpdateParams {
 }
 
 export namespace TriggerUpdateParams {
-	export interface Config {
-		rateLimit?: Config.RateLimit;
+  export interface Config {
+    rateLimit?: Config.RateLimit;
 
-		retryPolicy?: Config.RetryPolicy;
+    retryPolicy?: Config.RetryPolicy;
 
-		scheduleConfig?: Config.ScheduleConfig;
+    scheduleConfig?: Config.ScheduleConfig;
 
-		timeoutMs?: number;
+    timeoutMs?: number;
 
-		webhookConfig?: Config.WebhookConfig | null;
-	}
+    webhookConfig?: Config.WebhookConfig | null;
+  }
 
-	export namespace Config {
-		export interface RateLimit {
-			maxRequests: number;
+  export namespace Config {
+    export interface RateLimit {
+      maxRequests: number;
 
-			windowMs: number;
-		}
+      windowMs: number;
+    }
 
-		export interface RetryPolicy {
-			backoffMs: number;
+    export interface RetryPolicy {
+      backoffMs: number;
 
-			maxBackoffMs: number;
+      maxBackoffMs: number;
 
-			maxRetries: number;
-		}
+      maxRetries: number;
+    }
 
-		export interface ScheduleConfig {
-			cron?: string;
+    export interface ScheduleConfig {
+      cron?: string;
 
-			intervalMs?: number;
+      intervalMs?: number;
 
-			timezone?: string;
-		}
+      timezone?: string;
+    }
 
-		export interface WebhookConfig {
-			event?: string;
-		}
-	}
+    export interface WebhookConfig {
+      event?: string;
+    }
+  }
 }
 
 export interface TriggerListParams extends PageBasedParams {
