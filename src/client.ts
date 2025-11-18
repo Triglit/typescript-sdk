@@ -45,14 +45,7 @@ import {
   Triggers,
   TriggersPageBased,
 } from './resources/triggers';
-import {
-  Workflow,
-  WorkflowCreateParams,
-  WorkflowListParams,
-  WorkflowUpdateParams,
-  Workflows,
-  WorkflowsPageBased,
-} from './resources/workflows/workflows';
+import { Workflow, WorkflowListParams, Workflows, WorkflowsPageBased } from './resources/workflows/workflows';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -818,8 +811,6 @@ export declare namespace Triglit {
     Workflows as Workflows,
     type Workflow as Workflow,
     type WorkflowsPageBased as WorkflowsPageBased,
-    type WorkflowCreateParams as WorkflowCreateParams,
-    type WorkflowUpdateParams as WorkflowUpdateParams,
     type WorkflowListParams as WorkflowListParams,
   };
 
