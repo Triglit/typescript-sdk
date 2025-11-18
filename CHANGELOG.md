@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.3 (2025-11-18)
+
+Full Changelog: [v0.4.2...v0.4.3](https://github.com/Triglit/typescript-sdk/compare/v0.4.2...v0.4.3)
+
+### Bug Fixes
+
+* **spec:** atualiza spec da API retornando métodos adicionados ([6b2e127](https://github.com/Triglit/typescript-sdk/commit/6b2e1270b23eafde56ccab0eff825f995a64ee60))
+
 ## 0.4.2 (2025-11-18)
 
 Full Changelog: [v0.4.0...v0.4.2](https://github.com/Triglit/typescript-sdk/compare/v0.4.0...v0.4.2)
