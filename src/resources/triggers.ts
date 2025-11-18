@@ -227,7 +227,7 @@ export namespace TriggerCreateParams {
 
     timeoutMs?: number;
 
-    webhookConfig?: Config.Event | unknown | null;
+    webhookConfig?: Config.WebhookConfig | null;
   }
 
   export namespace Config {
@@ -253,7 +253,7 @@ export namespace TriggerCreateParams {
       timezone?: string;
     }
 
-    export interface Event {
+    export interface WebhookConfig {
       event?: string;
     }
   }
@@ -277,7 +277,7 @@ export namespace TriggerUpdateParams {
 
     timeoutMs?: number;
 
-    webhookConfig?: Config.Event | unknown | null;
+    webhookConfig?: Config.WebhookConfig | null;
   }
 
   export namespace Config {
@@ -303,7 +303,7 @@ export namespace TriggerUpdateParams {
       timezone?: string;
     }
 
-    export interface Event {
+    export interface WebhookConfig {
       event?: string;
     }
   }
