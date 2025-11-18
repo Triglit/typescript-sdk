@@ -30,6 +30,8 @@ export {
 export {
   Workflows,
   type Workflow,
+  type WorkflowCreateParams,
+  type WorkflowUpdateParams,
   type WorkflowListParams,
   type WorkflowsPageBased,
 } from './workflows/workflows';
