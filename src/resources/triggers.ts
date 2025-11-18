@@ -8,364 +8,364 @@ import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
 export class Triggers extends APIResource {
-  /**
-   * Creates a new trigger for a workflow version. Requires secret key
-   * authentication.
-   */
-  create(body: TriggerCreateParams, options?: RequestOptions): APIPromise<Trigger> {
-    return this._client.post('/v1/gateway/triggers', { body, ...options });
-  }
+	/**
+	 * Creates a new trigger for a workflow version. Requires secret key
+	 * authentication.
+	 */
+	create(body: TriggerCreateParams, options?: RequestOptions): APIPromise<Trigger> {
+		return this._client.post('/v1/gateway/triggers', { body, ...options });
+	}
 
-  /**
-   * Retrieves a specific trigger by its ID. Accepts both public and secret keys.
-   */
-  retrieve(triggerID: string, options?: RequestOptions): APIPromise<Trigger> {
-    return this._client.get(path`/v1/gateway/triggers/${triggerID}`, options);
-  }
+	/**
+	 * Retrieves a specific trigger by its ID. Accepts both public and secret keys.
+	 */
+	retrieve(triggerID: string, options?: RequestOptions): APIPromise<Trigger> {
+		return this._client.get(path`/v1/gateway/triggers/${triggerID}`, options);
+	}
 
-  /**
-   * Updates an existing trigger. Requires secret key authentication.
-   */
-  update(triggerID: string, body: TriggerUpdateParams, options?: RequestOptions): APIPromise<Trigger> {
-    return this._client.patch(path`/v1/gateway/triggers/${triggerID}`, { body, ...options });
-  }
+	/**
+	 * Updates an existing trigger. Requires secret key authentication.
+	 */
+	update(triggerID: string, body: TriggerUpdateParams, options?: RequestOptions): APIPromise<Trigger> {
+		return this._client.patch(path`/v1/gateway/triggers/${triggerID}`, { body, ...options });
+	}
 
-  /**
-   * Retrieves a paginated list of triggers for the tenant. Accepts both public and
-   * secret keys.
-   */
-  list(
-    query: TriggerListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<TriggersPageBased, Trigger> {
-    return this._client.getAPIList('/v1/gateway/triggers', PageBased<Trigger>, { query, ...options });
-  }
+	/**
+	 * Retrieves a paginated list of triggers for the tenant. Accepts both public and
+	 * secret keys.
+	 */
+	list(
+		query: TriggerListParams | null | undefined = {},
+		options?: RequestOptions,
+	): PagePromise<TriggersPageBased, Trigger> {
+		return this._client.getAPIList('/v1/gateway/triggers', PageBased<Trigger>, { query, ...options });
+	}
 
-  /**
-   * Deletes a trigger. Requires secret key authentication.
-   */
-  delete(triggerID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/gateway/triggers/${triggerID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
+	/**
+	 * Deletes a trigger. Requires secret key authentication.
+	 */
+	delete(triggerID: string, options?: RequestOptions): APIPromise<void> {
+		return this._client.delete(path`/v1/gateway/triggers/${triggerID}`, {
+			...options,
+			headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+		});
+	}
 
-  /**
-   * Retrieves a paginated list of triggers for a specific workflow version. Accepts
-   * both public and secret keys.
-   */
-  listByWorkflowVersion(
-    workflowVersionID: string,
-    query: TriggerListByWorkflowVersionParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<TriggersPageBased, Trigger> {
-    return this._client.getAPIList(
-      path`/v1/gateway/triggers/workflow-version/${workflowVersionID}`,
-      PageBased<Trigger>,
-      { query, ...options },
-    );
-  }
+	/**
+	 * Retrieves a paginated list of triggers for a specific workflow version. Accepts
+	 * both public and secret keys.
+	 */
+	listByWorkflowVersion(
+		workflowVersionID: string,
+		query: TriggerListByWorkflowVersionParams | null | undefined = {},
+		options?: RequestOptions,
+	): PagePromise<TriggersPageBased, Trigger> {
+		return this._client.getAPIList(
+			path`/v1/gateway/triggers/workflow-version/${workflowVersionID}`,
+			PageBased<Trigger>,
+			{ query, ...options },
+		);
+	}
 
-  /**
-   * Resumes a paused workflow execution with input data. Requires secret key
-   * authentication.
-   */
-  resumeExecution(body: TriggerResumeExecutionParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.post('/v1/gateway/triggers/resume', {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
+	/**
+	 * Resumes a paused workflow execution with input data. Requires secret key
+	 * authentication.
+	 */
+	resumeExecution(body: TriggerResumeExecutionParams, options?: RequestOptions): APIPromise<void> {
+		return this._client.post('/v1/gateway/triggers/resume', {
+			body,
+			...options,
+			headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+		});
+	}
 
-  /**
-   * Finds and triggers all active webhook triggers matching the specified event and
-   * subTenantId (if provided). This is a helper endpoint to facilitate workflow
-   * initiation by event name instead of trigger ID.
-   */
-  triggerByEvent(
-    body: TriggerTriggerByEventParams,
-    options?: RequestOptions,
-  ): APIPromise<TriggerTriggerByEventResponse> {
-    return this._client.post('/v1/gateway/triggers/webhook/by-event', { body, ...options });
-  }
+	/**
+	 * Finds and triggers all active webhook triggers matching the specified event and
+	 * subTenantId (if provided). This is a helper endpoint to facilitate workflow
+	 * initiation by event name instead of trigger ID.
+	 */
+	triggerByEvent(
+		body: TriggerTriggerByEventParams,
+		options?: RequestOptions,
+	): APIPromise<TriggerTriggerByEventResponse> {
+		return this._client.post('/v1/gateway/triggers/webhook/by-event', { body, ...options });
+	}
 
-  /**
-   * Triggers a webhook trigger with event data.
-   */
-  triggerWebhook(
-    triggerID: string,
-    body: TriggerTriggerWebhookParams,
-    options?: RequestOptions,
-  ): APIPromise<TriggerTriggerWebhookResponse> {
-    return this._client.post(path`/v1/gateway/triggers/${triggerID}/webhook`, { body, ...options });
-  }
+	/**
+	 * Triggers a webhook trigger with event data.
+	 */
+	triggerWebhook(
+		triggerID: string,
+		body: TriggerTriggerWebhookParams,
+		options?: RequestOptions,
+	): APIPromise<TriggerTriggerWebhookResponse> {
+		return this._client.post(path`/v1/gateway/triggers/${triggerID}/webhook`, { body, ...options });
+	}
 }
 
 export type TriggersPageBased = PageBased<Trigger>;
 
 export interface Trigger {
-  /**
-   * Unique trigger identifier
-   */
-  id: string;
+	/**
+	 * Unique trigger identifier
+	 */
+	id: string;
 
-  /**
-   * Trigger configuration
-   */
-  config: { [key: string]: unknown };
+	/**
+	 * Trigger configuration
+	 */
+	config: { [key: string]: unknown };
 
-  /**
-   * Creation timestamp
-   */
-  createdAt: string;
+	/**
+	 * Creation timestamp
+	 */
+	createdAt: string;
 
-  /**
-   * Whether the trigger is active
-   */
-  isActive: boolean;
+	/**
+	 * Whether the trigger is active
+	 */
+	isActive: boolean;
 
-  /**
-   * Trigger name
-   */
-  name: string;
+	/**
+	 * Trigger name
+	 */
+	name: string;
 
-  /**
-   * Tenant identifier
-   */
-  tenantId: string;
+	/**
+	 * Tenant identifier
+	 */
+	tenantId: string;
 
-  /**
-   * Trigger type
-   */
-  type: 'schedule' | 'webhook';
+	/**
+	 * Trigger type
+	 */
+	type: 'schedule' | 'webhook';
 
-  /**
-   * Last update timestamp
-   */
-  updatedAt: string;
+	/**
+	 * Last update timestamp
+	 */
+	updatedAt: string;
 
-  /**
-   * Workflow version identifier
-   */
-  workflowVersionId: string;
+	/**
+	 * Workflow version identifier
+	 */
+	workflowVersionId: string;
 
-  /**
-   * Sub-tenant identifier
-   */
-  subTenantId?: string;
+	/**
+	 * Sub-tenant identifier
+	 */
+	subTenantId?: string;
 }
 
 export interface TriggerList {
-  /**
-   * List of triggers
-   */
-  data: Array<Trigger>;
+	/**
+	 * List of triggers
+	 */
+	data: Array<Trigger>;
 
-  /**
-   * Last page number available (zero-based)
-   */
-  lastPage: number;
+	/**
+	 * Last page number available (zero-based)
+	 */
+	lastPage: number;
 
-  /**
-   * Current page number (zero-based)
-   */
-  page: number;
+	/**
+	 * Current page number (zero-based)
+	 */
+	page: number;
 }
 
 export interface TriggerTriggerByEventResponse {
-  /**
-   * Total number of triggers found and triggered
-   */
-  total: number;
+	/**
+	 * Total number of triggers found and triggered
+	 */
+	total: number;
 
-  /**
-   * List of triggered webhook triggers
-   */
-  triggers: Array<TriggerTriggerByEventResponse.Trigger>;
+	/**
+	 * List of triggered webhook triggers
+	 */
+	triggers: Array<TriggerTriggerByEventResponse.Trigger>;
 }
 
 export namespace TriggerTriggerByEventResponse {
-  export interface Trigger {
-    /**
-     * Deduplication key
-     */
-    dedupeKey: string;
+	export interface Trigger {
+		/**
+		 * Deduplication key
+		 */
+		dedupeKey: string;
 
-    /**
-     * Trigger identifier
-     */
-    triggerId: string;
-  }
+		/**
+		 * Trigger identifier
+		 */
+		triggerId: string;
+	}
 }
 
 export interface TriggerTriggerWebhookResponse {
-  /**
-   * Deduplication key
-   */
-  dedupeKey: string;
+	/**
+	 * Deduplication key
+	 */
+	dedupeKey: string;
 }
 
 export interface TriggerCreateParams {
-  config: TriggerCreateParams.Config;
+	config: TriggerCreateParams.Config;
 
-  name: string;
+	name: string;
 
-  type: 'schedule' | 'webhook';
+	type: 'schedule' | 'webhook';
 
-  workflowVersionId: string;
+	workflowVersionId: string;
 }
 
 export namespace TriggerCreateParams {
-  export interface Config {
-    rateLimit?: Config.RateLimit;
+	export interface Config {
+		rateLimit?: Config.RateLimit;
 
-    retryPolicy?: Config.RetryPolicy;
+		retryPolicy?: Config.RetryPolicy;
 
-    scheduleConfig?: Config.ScheduleConfig;
+		scheduleConfig?: Config.ScheduleConfig;
 
-    timeoutMs?: number;
+		timeoutMs?: number;
 
-    webhookConfig?: Config.WebhookConfig | null;
-  }
+		webhookConfig?: Config.WebhookConfig | null;
+	}
 
-  export namespace Config {
-    export interface RateLimit {
-      maxRequests: number;
+	export namespace Config {
+		export interface RateLimit {
+			maxRequests: number;
 
-      windowMs: number;
-    }
+			windowMs: number;
+		}
 
-    export interface RetryPolicy {
-      backoffMs: number;
+		export interface RetryPolicy {
+			backoffMs: number;
 
-      maxBackoffMs: number;
+			maxBackoffMs: number;
 
-      maxRetries: number;
-    }
+			maxRetries: number;
+		}
 
-    export interface ScheduleConfig {
-      cron?: string;
+		export interface ScheduleConfig {
+			cron?: string;
 
-      intervalMs?: number;
+			intervalMs?: number;
 
-      timezone?: string;
-    }
+			timezone?: string;
+		}
 
-    export interface WebhookConfig {
-      event?: string;
-    }
-  }
+		export interface WebhookConfig {
+			event?: string;
+		}
+	}
 }
 
 export interface TriggerUpdateParams {
-  config?: TriggerUpdateParams.Config;
+	config?: TriggerUpdateParams.Config;
 
-  isActive?: boolean;
+	isActive?: boolean;
 
-  name?: string;
+	name?: string;
 }
 
 export namespace TriggerUpdateParams {
-  export interface Config {
-    rateLimit?: Config.RateLimit;
+	export interface Config {
+		rateLimit?: Config.RateLimit;
 
-    retryPolicy?: Config.RetryPolicy;
+		retryPolicy?: Config.RetryPolicy;
 
-    scheduleConfig?: Config.ScheduleConfig;
+		scheduleConfig?: Config.ScheduleConfig;
 
-    timeoutMs?: number;
+		timeoutMs?: number;
 
-    webhookConfig?: Config.WebhookConfig | null;
-  }
+		webhookConfig?: Config.WebhookConfig | null;
+	}
 
-  export namespace Config {
-    export interface RateLimit {
-      maxRequests: number;
+	export namespace Config {
+		export interface RateLimit {
+			maxRequests: number;
 
-      windowMs: number;
-    }
+			windowMs: number;
+		}
 
-    export interface RetryPolicy {
-      backoffMs: number;
+		export interface RetryPolicy {
+			backoffMs: number;
 
-      maxBackoffMs: number;
+			maxBackoffMs: number;
 
-      maxRetries: number;
-    }
+			maxRetries: number;
+		}
 
-    export interface ScheduleConfig {
-      cron?: string;
+		export interface ScheduleConfig {
+			cron?: string;
 
-      intervalMs?: number;
+			intervalMs?: number;
 
-      timezone?: string;
-    }
+			timezone?: string;
+		}
 
-    export interface WebhookConfig {
-      event?: string;
-    }
-  }
+		export interface WebhookConfig {
+			event?: string;
+		}
+	}
 }
 
 export interface TriggerListParams extends PageBasedParams {
-  /**
-   * Whether the triggers should be active
-   */
-  isActive?: boolean;
+	/**
+	 * Whether the triggers should be active
+	 */
+	isActive?: boolean;
 
-  /**
-   * Search term to filter triggers
-   */
-  search?: string;
+	/**
+	 * Search term to filter triggers
+	 */
+	search?: string;
 
-  /**
-   * Type of the triggers to return
-   */
-  type?: 'schedule' | 'webhook';
+	/**
+	 * Type of the triggers to return
+	 */
+	type?: 'schedule' | 'webhook';
 
-  /**
-   * Workflow version identifier
-   */
-  workflowVersionId?: string;
+	/**
+	 * Workflow version identifier
+	 */
+	workflowVersionId?: string;
 }
 
 export interface TriggerListByWorkflowVersionParams extends PageBasedParams {}
 
 export interface TriggerResumeExecutionParams {
-  resumeToken: string;
+	resumeToken: string;
 
-  runId: string;
+	runId: string;
 
-  input?: unknown;
+	input?: unknown;
 }
 
 export interface TriggerTriggerByEventParams {
-  event: string;
+	event: string;
 
-  eventData?: { [key: string]: unknown };
+	eventData?: { [key: string]: unknown };
 
-  subTenantId?: string;
+	subTenantId?: string;
 }
 
 export interface TriggerTriggerWebhookParams {
-  eventData?: { [key: string]: unknown };
+	eventData?: { [key: string]: unknown };
 }
 
 export declare namespace Triggers {
-  export {
-    type Trigger as Trigger,
-    type TriggerList as TriggerList,
-    type TriggerTriggerByEventResponse as TriggerTriggerByEventResponse,
-    type TriggerTriggerWebhookResponse as TriggerTriggerWebhookResponse,
-    type TriggersPageBased as TriggersPageBased,
-    type TriggerCreateParams as TriggerCreateParams,
-    type TriggerUpdateParams as TriggerUpdateParams,
-    type TriggerListParams as TriggerListParams,
-    type TriggerListByWorkflowVersionParams as TriggerListByWorkflowVersionParams,
-    type TriggerResumeExecutionParams as TriggerResumeExecutionParams,
-    type TriggerTriggerByEventParams as TriggerTriggerByEventParams,
-    type TriggerTriggerWebhookParams as TriggerTriggerWebhookParams,
-  };
+	export {
+		type Trigger as Trigger,
+		type TriggerList as TriggerList,
+		type TriggerTriggerByEventResponse as TriggerTriggerByEventResponse,
+		type TriggerTriggerWebhookResponse as TriggerTriggerWebhookResponse,
+		type TriggersPageBased as TriggersPageBased,
+		type TriggerCreateParams as TriggerCreateParams,
+		type TriggerUpdateParams as TriggerUpdateParams,
+		type TriggerListParams as TriggerListParams,
+		type TriggerListByWorkflowVersionParams as TriggerListByWorkflowVersionParams,
+		type TriggerResumeExecutionParams as TriggerResumeExecutionParams,
+		type TriggerTriggerByEventParams as TriggerTriggerByEventParams,
+		type TriggerTriggerWebhookParams as TriggerTriggerWebhookParams,
+	};
 }
