@@ -15,7 +15,6 @@ import {
 } from './versions';
 import { APIPromise } from '../../core/api-promise';
 import { PageBased, type PageBasedParams, PagePromise } from '../../core/pagination';
-import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -23,25 +22,10 @@ export class Workflows extends APIResource {
   versions: VersionsAPI.Versions = new VersionsAPI.Versions(this._client);
 
   /**
-   * Creates a new workflow for the tenant.
-   */
-  create(params: WorkflowCreateParams, options?: RequestOptions): APIPromise<Workflow> {
-    const { subTenantId, ...body } = params;
-    return this._client.post('/v1/gateway/workflows', { query: { subTenantId }, body, ...options });
-  }
-
-  /**
    * Retrieves a specific workflow by its ID. Accepts both public and secret keys.
    */
   retrieve(workflowID: string, options?: RequestOptions): APIPromise<Workflow> {
     return this._client.get(path`/v1/gateway/workflows/${workflowID}`, options);
-  }
-
-  /**
-   * Updates an existing workflow.
-   */
-  update(workflowID: string, body: WorkflowUpdateParams, options?: RequestOptions): APIPromise<Workflow> {
-    return this._client.patch(path`/v1/gateway/workflows/${workflowID}`, { body, ...options });
   }
 
   /**
@@ -53,16 +37,6 @@ export class Workflows extends APIResource {
     options?: RequestOptions,
   ): PagePromise<WorkflowsPageBased, Workflow> {
     return this._client.getAPIList('/v1/gateway/workflows', PageBased<Workflow>, { query, ...options });
-  }
-
-  /**
-   * Deletes a workflow and all its versions.
-   */
-  delete(workflowID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/gateway/workflows/${workflowID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 
@@ -110,29 +84,6 @@ export interface Workflow {
   subTenantId?: string;
 }
 
-export interface WorkflowCreateParams {
-  /**
-   * Body param:
-   */
-  name: string;
-
-  /**
-   * Query param: Sub-tenant identifier
-   */
-  subTenantId?: string;
-
-  /**
-   * Body param:
-   */
-  description?: string;
-}
-
-export interface WorkflowUpdateParams {
-  description?: string;
-
-  name?: string;
-}
-
 export interface WorkflowListParams extends PageBasedParams {
   /**
    * Whether the workflows should be active
@@ -156,8 +107,6 @@ export declare namespace Workflows {
   export {
     type Workflow as Workflow,
     type WorkflowsPageBased as WorkflowsPageBased,
-    type WorkflowCreateParams as WorkflowCreateParams,
-    type WorkflowUpdateParams as WorkflowUpdateParams,
     type WorkflowListParams as WorkflowListParams,
   };
 

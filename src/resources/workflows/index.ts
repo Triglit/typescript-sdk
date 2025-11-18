@@ -11,11 +11,4 @@ export {
   type VersionList1Params,
   type WorkflowVersionsPageBased,
 } from './versions';
-export {
-  Workflows,
-  type Workflow,
-  type WorkflowCreateParams,
-  type WorkflowUpdateParams,
-  type WorkflowListParams,
-  type WorkflowsPageBased,
-} from './workflows';
+export { Workflows, type Workflow, type WorkflowListParams, type WorkflowsPageBased } from './workflows';
