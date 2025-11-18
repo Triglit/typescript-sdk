@@ -137,12 +137,12 @@ You can use the `for await … of` syntax to iterate through items across all pa
 
 ```ts
 async function fetchAllTriggers(params) {
-  const allTriggers = [];
-  // Automatically fetches more pages as needed.
-  for await (const trigger of client.triggers.list({ pageSize: 20 })) {
-    allTriggers.push(trigger);
-  }
-  return allTriggers;
+	const allTriggers = [];
+	// Automatically fetches more pages as needed.
+	for await (const trigger of client.triggers.list({ pageSize: 20 })) {
+		allTriggers.push(trigger);
+	}
+	return allTriggers;
 }
 ```
 
@@ -151,13 +151,13 @@ Alternatively, you can request a single page at a time:
 ```ts
 let page = await client.triggers.list({ pageSize: 20 });
 for (const trigger of page.data) {
-  console.log(trigger);
+	console.log(trigger);
 }
 
 // Convenience methods are provided for manually paginating:
 while (page.hasNextPage()) {
-  page = await page.getNextPage();
-  // ...
+	page = await page.getNextPage();
+	// ...
 }
 ```
 
@@ -205,17 +205,17 @@ The log level can be configured in two ways:
 import Triglit from 'triglit';
 
 const client = new Triglit({
-  logLevel: 'debug', // Show all log messages
+	logLevel: 'debug', // Show all log messages
 });
 ```
 
 Available log levels, from most to least verbose:
 
-- `'debug'` - Show debug messages, info, warnings, and errors
-- `'info'` - Show info messages, warnings, and errors
-- `'warn'` - Show warnings and errors (default)
-- `'error'` - Show only errors
-- `'off'` - Disable all logging
+-   `'debug'` - Show debug messages, info, warnings, and errors
+-   `'info'` - Show info messages, warnings, and errors
+-   `'warn'` - Show warnings and errors (default)
+-   `'error'` - Show only errors
+-   `'off'` - Disable all logging
 
 At the `'debug'` level, all HTTP requests and responses are logged, including headers and bodies.
 Some authentication-related headers are redacted, but sensitive data in request and response bodies
@@ -236,8 +236,8 @@ import pino from 'pino';
 const logger = pino();
 
 const client = new Triglit({
-  logger: logger.child({ name: 'Triglit' }),
-  logLevel: 'debug', // Send all messages to pino, allowing it to filter
+	logger: logger.child({ name: 'Triglit' }),
+	logLevel: 'debug', // Send all messages to pino, allowing it to filter
 });
 ```
 
@@ -253,8 +253,8 @@ Options on the client, such as retries, will be respected when making these requ
 
 ```ts
 await client.post('/some/path', {
-  body: { some_prop: 'foo' },
-  query: { some_query_arg: 'bar' },
+	body: { some_prop: 'foo' },
+	query: { some_query_arg: 'bar' },
 });
 ```
 
@@ -266,9 +266,9 @@ send will be sent as-is.
 
 ```ts
 client.triggers.triggerWebhook({
-  // ...
-  // @ts-expect-error baz is not yet public
-  baz: 'undocumented option',
+	// ...
+	// @ts-expect-error baz is not yet public
+	baz: 'undocumented option',
 });
 ```
 
@@ -313,9 +313,9 @@ If you want to set custom `fetch` options without overriding the `fetch` functio
 import Triglit from 'triglit';
 
 const client = new Triglit({
-  fetchOptions: {
-    // `RequestInit` options
-  },
+	fetchOptions: {
+		// `RequestInit` options
+	},
 });
 ```
 
@@ -332,9 +332,9 @@ import * as undici from 'undici';
 
 const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
 const client = new Triglit({
-  fetchOptions: {
-    dispatcher: proxyAgent,
-  },
+	fetchOptions: {
+		dispatcher: proxyAgent,
+	},
 });
 ```
 
@@ -344,9 +344,9 @@ const client = new Triglit({
 import Triglit from 'triglit';
 
 const client = new Triglit({
-  fetchOptions: {
-    proxy: 'http://localhost:8888',
-  },
+	fetchOptions: {
+		proxy: 'http://localhost:8888',
+	},
 });
 ```
 
@@ -357,9 +357,9 @@ import Triglit from 'npm:triglit';
 
 const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
 const client = new Triglit({
-  fetchOptions: {
-    client: httpClient,
-  },
+	fetchOptions: {
+		client: httpClient,
+	},
 });
 ```
 
@@ -383,14 +383,14 @@ TypeScript >= 4.9 is supported.
 
 The following runtimes are supported:
 
-- Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
-- Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher.
-- Bun 1.0 or later.
-- Cloudflare Workers.
-- Vercel Edge Runtime.
-- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
-- Nitro v2.6 or greater.
+-   Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
+-   Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+-   Deno v1.28.0 or higher.
+-   Bun 1.0 or later.
+-   Cloudflare Workers.
+-   Vercel Edge Runtime.
+-   Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
+-   Nitro v2.6 or greater.
 
 Note that React Native is not supported at this time.
 

@@ -8,416 +8,416 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 export class Versions extends APIResource {
-  /**
-   * Creates a new version of an existing workflow. Accepts both public and secret
-   * keys.
-   */
-  create(body: VersionCreateParams, options?: RequestOptions): APIPromise<WorkflowVersion> {
-    return this._client.post('/v1/gateway/workflow-versions', { body, ...options });
-  }
+	/**
+	 * Creates a new version of an existing workflow. Accepts both public and secret
+	 * keys.
+	 */
+	create(body: VersionCreateParams, options?: RequestOptions): APIPromise<WorkflowVersion> {
+		return this._client.post('/v1/gateway/workflow-versions', { body, ...options });
+	}
 
-  /**
-   * Updates an existing workflow version. Accepts both public and secret keys.
-   */
-  update(
-    versionID: string,
-    body: VersionUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<WorkflowVersion> {
-    return this._client.patch(path`/v1/gateway/workflow-versions/${versionID}`, { body, ...options });
-  }
+	/**
+	 * Updates an existing workflow version. Accepts both public and secret keys.
+	 */
+	update(
+		versionID: string,
+		body: VersionUpdateParams,
+		options?: RequestOptions,
+	): APIPromise<WorkflowVersion> {
+		return this._client.patch(path`/v1/gateway/workflow-versions/${versionID}`, { body, ...options });
+	}
 
-  /**
-   * Deletes a workflow version. Accepts both public and secret keys.
-   */
-  delete(versionID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/v1/gateway/workflow-versions/${versionID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
+	/**
+	 * Deletes a workflow version. Accepts both public and secret keys.
+	 */
+	delete(versionID: string, options?: RequestOptions): APIPromise<void> {
+		return this._client.delete(path`/v1/gateway/workflow-versions/${versionID}`, {
+			...options,
+			headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+		});
+	}
 
-  /**
-   * Retrieves all versions of a specific workflow. Accepts both public and secret
-   * keys.
-   */
-  list0(
-    workflowID: string,
-    query: VersionList0Params | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<WorkflowVersionsPageBased, WorkflowVersion> {
-    return this._client.getAPIList(
-      path`/v1/gateway/workflows/${workflowID}/versions`,
-      PageBased<WorkflowVersion>,
-      { query, ...options },
-    );
-  }
+	/**
+	 * Retrieves all versions of a specific workflow. Accepts both public and secret
+	 * keys.
+	 */
+	list0(
+		workflowID: string,
+		query: VersionList0Params | null | undefined = {},
+		options?: RequestOptions,
+	): PagePromise<WorkflowVersionsPageBased, WorkflowVersion> {
+		return this._client.getAPIList(
+			path`/v1/gateway/workflows/${workflowID}/versions`,
+			PageBased<WorkflowVersion>,
+			{ query, ...options },
+		);
+	}
 
-  /**
-   * Retrieves a paginated list of workflow versions for a specific workflow. Accepts
-   * both public and secret keys.
-   */
-  list1(
-    query: VersionList1Params,
-    options?: RequestOptions,
-  ): PagePromise<WorkflowVersionsPageBased, WorkflowVersion> {
-    return this._client.getAPIList('/v1/gateway/workflow-versions', PageBased<WorkflowVersion>, {
-      query,
-      ...options,
-    });
-  }
+	/**
+	 * Retrieves a paginated list of workflow versions for a specific workflow. Accepts
+	 * both public and secret keys.
+	 */
+	list1(
+		query: VersionList1Params,
+		options?: RequestOptions,
+	): PagePromise<WorkflowVersionsPageBased, WorkflowVersion> {
+		return this._client.getAPIList('/v1/gateway/workflow-versions', PageBased<WorkflowVersion>, {
+			query,
+			...options,
+		});
+	}
 
-  /**
-   * Publishes a workflow version, making it active. Accepts both public and secret
-   * keys.
-   */
-  publish(versionID: string, options?: RequestOptions): APIPromise<VersionPublishResponse> {
-    return this._client.post(path`/v1/gateway/workflow-versions/${versionID}/publish`, options);
-  }
+	/**
+	 * Publishes a workflow version, making it active. Accepts both public and secret
+	 * keys.
+	 */
+	publish(versionID: string, options?: RequestOptions): APIPromise<VersionPublishResponse> {
+		return this._client.post(path`/v1/gateway/workflow-versions/${versionID}/publish`, options);
+	}
 
-  /**
-   * Retrieves a specific workflow version by its ID. Accepts both public and secret
-   * keys.
-   */
-  retrieve0(versionID: string, options?: RequestOptions): APIPromise<WorkflowVersion> {
-    return this._client.get(path`/v1/gateway/workflows/versions/${versionID}`, options);
-  }
+	/**
+	 * Retrieves a specific workflow version by its ID. Accepts both public and secret
+	 * keys.
+	 */
+	retrieve0(versionID: string, options?: RequestOptions): APIPromise<WorkflowVersion> {
+		return this._client.get(path`/v1/gateway/workflows/versions/${versionID}`, options);
+	}
 
-  /**
-   * Retrieves a specific workflow version by its ID. Accepts both public and secret
-   * keys.
-   */
-  retrieve1(versionID: string, options?: RequestOptions): APIPromise<WorkflowVersion> {
-    return this._client.get(path`/v1/gateway/workflow-versions/${versionID}`, options);
-  }
+	/**
+	 * Retrieves a specific workflow version by its ID. Accepts both public and secret
+	 * keys.
+	 */
+	retrieve1(versionID: string, options?: RequestOptions): APIPromise<WorkflowVersion> {
+		return this._client.get(path`/v1/gateway/workflow-versions/${versionID}`, options);
+	}
 }
 
 export type WorkflowVersionsPageBased = PageBased<WorkflowVersion>;
 
 export interface WorkflowVersion {
-  /**
-   * Unique workflow version identifier
-   */
-  id: string;
+	/**
+	 * Unique workflow version identifier
+	 */
+	id: string;
 
-  /**
-   * Creation timestamp
-   */
-  createdAt: string;
+	/**
+	 * Creation timestamp
+	 */
+	createdAt: string;
 
-  /**
-   * Workflow edges
-   */
-  edges: Array<WorkflowVersion.Edge>;
+	/**
+	 * Workflow edges
+	 */
+	edges: Array<WorkflowVersion.Edge>;
 
-  /**
-   * Whether this version is active
-   */
-  isActive: boolean;
+	/**
+	 * Whether this version is active
+	 */
+	isActive: boolean;
 
-  /**
-   * Workflow nodes
-   */
-  nodes: Array<WorkflowVersion.Node>;
+	/**
+	 * Workflow nodes
+	 */
+	nodes: Array<WorkflowVersion.Node>;
 
-  /**
-   * Tenant identifier
-   */
-  tenantId: string;
+	/**
+	 * Tenant identifier
+	 */
+	tenantId: string;
 
-  /**
-   * Version number
-   */
-  version: number;
+	/**
+	 * Version number
+	 */
+	version: number;
 
-  /**
-   * Parent workflow identifier
-   */
-  workflowId: string;
+	/**
+	 * Parent workflow identifier
+	 */
+	workflowId: string;
 
-  /**
-   * Publication timestamp
-   */
-  publishedAt?: string;
+	/**
+	 * Publication timestamp
+	 */
+	publishedAt?: string;
 
-  /**
-   * Sub-tenant identifier
-   */
-  subTenantId?: string;
+	/**
+	 * Sub-tenant identifier
+	 */
+	subTenantId?: string;
 }
 
 export namespace WorkflowVersion {
-  export interface Edge {
-    /**
-     * Unique edge identifier
-     */
-    id: string;
+	export interface Edge {
+		/**
+		 * Unique edge identifier
+		 */
+		id: string;
 
-    /**
-     * Source node identifier
-     */
-    sourceNodeId: string;
+		/**
+		 * Source node identifier
+		 */
+		sourceNodeId: string;
 
-    /**
-     * Target node identifier
-     */
-    targetNodeId: string;
+		/**
+		 * Target node identifier
+		 */
+		targetNodeId: string;
 
-    /**
-     * Conditional expression for edge execution
-     */
-    condition?: string;
+		/**
+		 * Conditional expression for edge execution
+		 */
+		condition?: string;
 
-    /**
-     * Edge label for display purposes
-     */
-    label?: string;
+		/**
+		 * Edge label for display purposes
+		 */
+		label?: string;
 
-    /**
-     * Output key from source node
-     */
-    sourceOutputKey?: string;
+		/**
+		 * Output key from source node
+		 */
+		sourceOutputKey?: string;
 
-    /**
-     * Input key of target node
-     */
-    targetInputKey?: string;
-  }
+		/**
+		 * Input key of target node
+		 */
+		targetInputKey?: string;
+	}
 
-  export interface Node {
-    /**
-     * Unique node identifier
-     */
-    id: string;
+	export interface Node {
+		/**
+		 * Unique node identifier
+		 */
+		id: string;
 
-    /**
-     * Whether this node can be paused during execution
-     */
-    canPause: boolean;
+		/**
+		 * Whether this node can be paused during execution
+		 */
+		canPause: boolean;
 
-    /**
-     * Node configuration object
-     */
-    config: { [key: string]: unknown };
+		/**
+		 * Node configuration object
+		 */
+		config: { [key: string]: unknown };
 
-    /**
-     * Node input schema validation
-     */
-    inputSchema: { [key: string]: unknown };
+		/**
+		 * Node input schema validation
+		 */
+		inputSchema: { [key: string]: unknown };
 
-    /**
-     * Node display name
-     */
-    name: string;
+		/**
+		 * Node display name
+		 */
+		name: string;
 
-    /**
-     * Node output schema definition
-     */
-    outputSchema: { [key: string]: unknown };
+		/**
+		 * Node output schema definition
+		 */
+		outputSchema: { [key: string]: unknown };
 
-    /**
-     * Node position in the canvas
-     */
-    position: Node.Position;
+		/**
+		 * Node position in the canvas
+		 */
+		position: Node.Position;
 
-    /**
-     * Node type
-     */
-    type: 'trigger' | 'action' | 'decision';
+		/**
+		 * Node type
+		 */
+		type: 'trigger' | 'action' | 'decision';
 
-    /**
-     * Node version
-     */
-    version: string;
+		/**
+		 * Node version
+		 */
+		version: string;
 
-    /**
-     * Node description
-     */
-    description?: string;
-  }
+		/**
+		 * Node description
+		 */
+		description?: string;
+	}
 
-  export namespace Node {
-    /**
-     * Node position in the canvas
-     */
-    export interface Position {
-      /**
-       * X coordinate position
-       */
-      x: number;
+	export namespace Node {
+		/**
+		 * Node position in the canvas
+		 */
+		export interface Position {
+			/**
+			 * X coordinate position
+			 */
+			x: number;
 
-      /**
-       * Y coordinate position
-       */
-      y: number;
-    }
-  }
+			/**
+			 * Y coordinate position
+			 */
+			y: number;
+		}
+	}
 }
 
 export interface WorkflowVersionList {
-  /**
-   * List of workflow versions
-   */
-  data: Array<WorkflowVersion>;
+	/**
+	 * List of workflow versions
+	 */
+	data: Array<WorkflowVersion>;
 
-  /**
-   * Last page number available (zero-based)
-   */
-  lastPage: number;
+	/**
+	 * Last page number available (zero-based)
+	 */
+	lastPage: number;
 
-  /**
-   * Current page number (zero-based)
-   */
-  page: number;
+	/**
+	 * Current page number (zero-based)
+	 */
+	page: number;
 }
 
 export interface VersionPublishResponse {
-  /**
-   * Success message
-   */
-  message: string;
+	/**
+	 * Success message
+	 */
+	message: string;
 
-  /**
-   * Published workflow version
-   */
-  version: WorkflowVersion;
+	/**
+	 * Published workflow version
+	 */
+	version: WorkflowVersion;
 }
 
 export interface VersionCreateParams {
-  edges: Array<VersionCreateParams.Edge>;
+	edges: Array<VersionCreateParams.Edge>;
 
-  nodes: Array<VersionCreateParams.Node>;
+	nodes: Array<VersionCreateParams.Node>;
 
-  workflowId: string;
+	workflowId: string;
 }
 
 export namespace VersionCreateParams {
-  export interface Edge {
-    sourceNodeId: string;
+	export interface Edge {
+		sourceNodeId: string;
 
-    targetNodeId: string;
+		targetNodeId: string;
 
-    condition?: string;
+		condition?: string;
 
-    label?: string;
+		label?: string;
 
-    sourceOutputKey?: string;
+		sourceOutputKey?: string;
 
-    targetInputKey?: string;
-  }
+		targetInputKey?: string;
+	}
 
-  export interface Node {
-    id: string;
+	export interface Node {
+		id: string;
 
-    config: { [key: string]: unknown };
+		config: { [key: string]: unknown };
 
-    inputSchema: { [key: string]: unknown };
+		inputSchema: { [key: string]: unknown };
 
-    name: string;
+		name: string;
 
-    outputSchema: { [key: string]: unknown };
+		outputSchema: { [key: string]: unknown };
 
-    position: Node.Position;
+		position: Node.Position;
 
-    type: string;
+		type: string;
 
-    version: string;
+		version: string;
 
-    description?: string;
-  }
+		description?: string;
+	}
 
-  export namespace Node {
-    export interface Position {
-      x: number;
+	export namespace Node {
+		export interface Position {
+			x: number;
 
-      y: number;
-    }
-  }
+			y: number;
+		}
+	}
 }
 
 export interface VersionUpdateParams {
-  edges?: Array<VersionUpdateParams.Edge>;
+	edges?: Array<VersionUpdateParams.Edge>;
 
-  nodes?: Array<VersionUpdateParams.Node>;
+	nodes?: Array<VersionUpdateParams.Node>;
 }
 
 export namespace VersionUpdateParams {
-  export interface Edge {
-    sourceNodeId: string;
+	export interface Edge {
+		sourceNodeId: string;
 
-    targetNodeId: string;
+		targetNodeId: string;
 
-    condition?: string;
+		condition?: string;
 
-    label?: string;
+		label?: string;
 
-    sourceOutputKey?: string;
+		sourceOutputKey?: string;
 
-    targetInputKey?: string;
-  }
+		targetInputKey?: string;
+	}
 
-  export interface Node {
-    id: string;
+	export interface Node {
+		id: string;
 
-    config: { [key: string]: unknown };
+		config: { [key: string]: unknown };
 
-    inputSchema: { [key: string]: unknown };
+		inputSchema: { [key: string]: unknown };
 
-    name: string;
+		name: string;
 
-    outputSchema: { [key: string]: unknown };
+		outputSchema: { [key: string]: unknown };
 
-    position: Node.Position;
+		position: Node.Position;
 
-    type: string;
+		type: string;
 
-    version: string;
+		version: string;
 
-    description?: string;
-  }
+		description?: string;
+	}
 
-  export namespace Node {
-    export interface Position {
-      x: number;
+	export namespace Node {
+		export interface Position {
+			x: number;
 
-      y: number;
-    }
-  }
+			y: number;
+		}
+	}
 }
 
 export interface VersionList0Params extends PageBasedParams {
-  /**
-   * Whether the versions should be active
-   */
-  isActive?: boolean;
+	/**
+	 * Whether the versions should be active
+	 */
+	isActive?: boolean;
 }
 
 export interface VersionList1Params extends PageBasedParams {
-  /**
-   * Workflow identifier
-   */
-  workflowId: string;
+	/**
+	 * Workflow identifier
+	 */
+	workflowId: string;
 
-  /**
-   * Filter by active versions
-   */
-  isActive?: boolean;
+	/**
+	 * Filter by active versions
+	 */
+	isActive?: boolean;
 
-  /**
-   * Search for versions by name or description
-   */
-  search?: string;
+	/**
+	 * Search for versions by name or description
+	 */
+	search?: string;
 }
 
 export declare namespace Versions {
-  export {
-    type WorkflowVersion as WorkflowVersion,
-    type WorkflowVersionList as WorkflowVersionList,
-    type VersionPublishResponse as VersionPublishResponse,
-    type WorkflowVersionsPageBased as WorkflowVersionsPageBased,
-    type VersionCreateParams as VersionCreateParams,
-    type VersionUpdateParams as VersionUpdateParams,
-    type VersionList0Params as VersionList0Params,
-    type VersionList1Params as VersionList1Params,
-  };
+	export {
+		type WorkflowVersion as WorkflowVersion,
+		type WorkflowVersionList as WorkflowVersionList,
+		type VersionPublishResponse as VersionPublishResponse,
+		type WorkflowVersionsPageBased as WorkflowVersionsPageBased,
+		type VersionCreateParams as VersionCreateParams,
+		type VersionUpdateParams as VersionUpdateParams,
+		type VersionList0Params as VersionList0Params,
+		type VersionList1Params as VersionList1Params,
+	};
 }

@@ -13,32 +13,32 @@ type NotAny<T> = [0] extends [1 & T] ? never : T;
  * Some environments overload the global fetch function, and Parameters<T> only gets the last signature.
  */
 type OverloadedParameters<T> =
-  T extends (
-    {
-      (...args: infer A): unknown;
-      (...args: infer B): unknown;
-      (...args: infer C): unknown;
-      (...args: infer D): unknown;
-    }
-  ) ?
-    A | B | C | D
-  : T extends (
-    {
-      (...args: infer A): unknown;
-      (...args: infer B): unknown;
-      (...args: infer C): unknown;
-    }
-  ) ?
-    A | B | C
-  : T extends (
-    {
-      (...args: infer A): unknown;
-      (...args: infer B): unknown;
-    }
-  ) ?
-    A | B
-  : T extends (...args: infer A) => unknown ? A
-  : never;
+	T extends (
+		{
+			(...args: infer A): unknown;
+			(...args: infer B): unknown;
+			(...args: infer C): unknown;
+			(...args: infer D): unknown;
+		}
+	) ?
+		A | B | C | D
+	: T extends (
+		{
+			(...args: infer A): unknown;
+			(...args: infer B): unknown;
+			(...args: infer C): unknown;
+		}
+	) ?
+		A | B | C
+	: T extends (
+		{
+			(...args: infer A): unknown;
+			(...args: infer B): unknown;
+		}
+	) ?
+		A | B
+	: T extends (...args: infer A) => unknown ? A
+	: never;
 
 /* eslint-disable */
 /**
@@ -78,18 +78,18 @@ type FetchRequestInit = NonNullable<OverloadedParameters<typeof fetch>[1]>;
 /* eslint-enable */
 
 type RequestInits =
-  | NotAny<UndiciTypesRequestInit>
-  | NotAny<UndiciRequestInit>
-  | NotAny<BunRequestInit>
-  | NotAny<NodeFetch2RequestInit>
-  | NotAny<NodeFetch3RequestInit>
-  | NotAny<RequestInit>
-  | NotAny<FetchRequestInit>;
+	| NotAny<UndiciTypesRequestInit>
+	| NotAny<UndiciRequestInit>
+	| NotAny<BunRequestInit>
+	| NotAny<NodeFetch2RequestInit>
+	| NotAny<NodeFetch3RequestInit>
+	| NotAny<RequestInit>
+	| NotAny<FetchRequestInit>;
 
 /**
  * This type contains `RequestInit` options that may be available on the current runtime,
  * including per-platform extensions like `dispatcher`, `agent`, `client`, etc.
  */
 export type MergedRequestInit = RequestInits &
-  /** We don't include these in the types as they'll be overridden for every request. */
-  Partial<Record<'body' | 'headers' | 'method' | 'signal', never>>;
+	/** We don't include these in the types as they'll be overridden for every request. */
+	Partial<Record<'body' | 'headers' | 'method' | 'signal', never>>;

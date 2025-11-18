@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { CustomNodes, type CustomNodeRetrieveRegistryResponse } from './custom-nodes';
+export { CustomNodes, type CustomNodeRetrieveRegistryResponse, type CNPRequestBody } from './custom-nodes';
 export {
   SubTenants,
   type SubTenant,

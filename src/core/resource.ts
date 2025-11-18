@@ -3,9 +3,9 @@
 import type { Triglit } from '../client';
 
 export abstract class APIResource {
-  protected _client: Triglit;
+	protected _client: Triglit;
 
-  constructor(client: Triglit) {
-    this._client = client;
-  }
+	constructor(client: Triglit) {
+		this._client = client;
+	}
 }
