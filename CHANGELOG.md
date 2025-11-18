@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 (2025-11-18)
+
+Full Changelog: [v0.3.1...v0.4.0](https://github.com/Triglit/typescript-sdk/compare/v0.3.1...v0.4.0)
+
+### Features
+
+* **api:** adiciona endpoints de controle de workflows ([0c3a62c](https://github.com/Triglit/typescript-sdk/commit/0c3a62cd0346d2d6f649a6f9281e5af4d2e4516e))
+
 ## 0.3.1 (2025-11-16)
 
 Full Changelog: [v0.3.0...v0.3.1](https://github.com/Triglit/typescript-sdk/compare/v0.3.0...v0.3.1)
