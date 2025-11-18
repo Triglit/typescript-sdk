@@ -104,7 +104,7 @@ export declare namespace CustomNodes {
 	export { type CustomNodeRetrieveRegistryResponse as CustomNodeRetrieveRegistryResponse };
 }
 
-export type CNPRequestBody =
+export type CNPRequestBody<Inputs extends Record<string, unknown>, Config extends Record<string, unknown>> =
 	| { type: 'heartbeat'; tenantId: string; timestamp: string }
 	| {
 			type: 'run';
@@ -113,8 +113,9 @@ export type CNPRequestBody =
 				runId: string;
 				tenantId: string;
 				subTenantId?: string;
-				inputs: Record<string, unknown>;
-				config: Record<string, unknown>;
+				entityId: string;
+				inputs: Inputs;
+				config: Config;
 				metadata: {
 					timestamp: string;
 					version: string;
