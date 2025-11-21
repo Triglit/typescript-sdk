@@ -4,6 +4,7 @@ Types:
 
 - <code><a href="./src/resources/triggers.ts">Trigger</a></code>
 - <code><a href="./src/resources/triggers.ts">TriggerList</a></code>
+- <code><a href="./src/resources/triggers.ts">TriggerIngestResponse</a></code>
 - <code><a href="./src/resources/triggers.ts">TriggerTriggerByEventResponse</a></code>
 - <code><a href="./src/resources/triggers.ts">TriggerTriggerWebhookResponse</a></code>
 
@@ -14,6 +15,7 @@ Methods:
 - <code title="patch /v1/gateway/triggers/{triggerId}">client.triggers.<a href="./src/resources/triggers.ts">update</a>(triggerID, { ...params }) -> Trigger</code>
 - <code title="get /v1/gateway/triggers">client.triggers.<a href="./src/resources/triggers.ts">list</a>({ ...params }) -> TriggersPageBased</code>
 - <code title="delete /v1/gateway/triggers/{triggerId}">client.triggers.<a href="./src/resources/triggers.ts">delete</a>(triggerID) -> void</code>
+- <code title="post /v1/gateway/triggers/ingest">client.triggers.<a href="./src/resources/triggers.ts">ingest</a>({ ...params }) -> TriggerIngestResponse</code>
 - <code title="get /v1/gateway/triggers/workflow-version/{workflowVersionId}">client.triggers.<a href="./src/resources/triggers.ts">listByWorkflowVersion</a>(workflowVersionID, { ...params }) -> TriggersPageBased</code>
 - <code title="post /v1/gateway/triggers/resume">client.triggers.<a href="./src/resources/triggers.ts">resumeExecution</a>({ ...params }) -> void</code>
 - <code title="post /v1/gateway/triggers/webhook/by-event">client.triggers.<a href="./src/resources/triggers.ts">triggerByEvent</a>({ ...params }) -> TriggerTriggerByEventResponse</code>

@@ -108,6 +108,28 @@ describe('resource triggers', () => {
   });
 
   // Prism tests are disabled
+  test.skip('ingest: only required params', async () => {
+    const responsePromise = client.triggers.ingest({ event: 'x' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Prism tests are disabled
+  test.skip('ingest: required and optional params', async () => {
+    const response = await client.triggers.ingest({
+      event: 'x',
+      eventData: { foo: 'bar' },
+      resumeOptions: { resumeAll: true, runIds: ['string'], workflowVersionIds: ['string'] },
+      subTenantId: 'subTenantId',
+    });
+  });
+
+  // Prism tests are disabled
   test.skip('listByWorkflowVersion', async () => {
     const responsePromise = client.triggers.listByWorkflowVersion('wfv_abc123def456');
     const rawResponse = await responsePromise.asResponse();
