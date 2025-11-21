@@ -51,21 +51,31 @@ export class Triggers extends APIResource {
 		});
 	}
 
-	/**
-	 * Retrieves a paginated list of triggers for a specific workflow version. Accepts
-	 * both public and secret keys.
-	 */
-	listByWorkflowVersion(
-		workflowVersionID: string,
-		query: TriggerListByWorkflowVersionParams | null | undefined = {},
-		options?: RequestOptions,
-	): PagePromise<TriggersPageBased, Trigger> {
-		return this._client.getAPIList(
-			path`/v1/gateway/triggers/workflow-version/${workflowVersionID}`,
-			PageBased<Trigger>,
-			{ query, ...options },
-		);
-	}
+  /**
+   * Intelligently resumes paused executions for the same entityId and event, or
+   * triggers new workflows if no paused executions exist. This endpoint simplifies
+   * integration by automatically handling the decision between resuming and
+   * triggering.
+   */
+  ingest(body: TriggerIngestParams, options?: RequestOptions): APIPromise<TriggerIngestResponse> {
+    return this._client.post('/v1/gateway/triggers/ingest', { body, ...options });
+  }
+
+  /**
+   * Retrieves a paginated list of triggers for a specific workflow version. Accepts
+   * both public and secret keys.
+   */
+  listByWorkflowVersion(
+  	workflowVersionID: string,
+  	query: TriggerListByWorkflowVersionParams | null | undefined = {},
+  	options?: RequestOptions,
+  ): PagePromise<TriggersPageBased, Trigger> {
+  	return this._client.getAPIList(
+  		path`/v1/gateway/triggers/workflow-version/${workflowVersionID}`,
+  		PageBased<Trigger>,
+  		{ query, ...options },
+  	);
+  }
 
 	/**
 	 * Resumes a paused workflow execution with input data. Requires secret key
@@ -172,6 +182,71 @@ export interface TriggerList {
 	 * Current page number (zero-based)
 	 */
 	page: number;
+}
+
+export interface TriggerIngestResponse {
+  /**
+   * List of resumed executions
+   */
+  resumed: Array<TriggerIngestResponse.Resumed>;
+
+  /**
+   * List of skipped executions
+   */
+  skipped: Array<TriggerIngestResponse.Skipped>;
+
+  /**
+   * List of newly triggered workflows
+   */
+  triggered: Array<TriggerIngestResponse.Triggered>;
+}
+
+export namespace TriggerIngestResponse {
+  export interface Resumed {
+    /**
+     * Entity ID
+     */
+    entityId: string;
+
+    /**
+     * Run identifier that was resumed
+     */
+    runId: string;
+
+    /**
+     * Workflow version identifier
+     */
+    workflowVersionId: string;
+  }
+
+  export interface Skipped {
+    /**
+     * Reason why the execution was skipped
+     */
+    reason: 'expired' | 'not_paused' | 'wrong_event' | 'filtered_out';
+
+    /**
+     * Run identifier (if applicable)
+     */
+    runId?: string;
+  }
+
+  export interface Triggered {
+    /**
+     * Deduplication key
+     */
+    dedupeKey: string;
+
+    /**
+     * Trigger identifier
+     */
+    triggerId: string;
+
+    /**
+     * Run identifier (if workflow was started)
+     */
+    runId?: string;
+  }
 }
 
 export interface TriggerTriggerByEventResponse {
@@ -331,6 +406,26 @@ export interface TriggerListParams extends PageBasedParams {
 	workflowVersionId?: string;
 }
 
+export interface TriggerIngestParams {
+  event: string;
+
+  eventData?: { [key: string]: unknown };
+
+  resumeOptions?: TriggerIngestParams.ResumeOptions;
+
+  subTenantId?: string;
+}
+
+export namespace TriggerIngestParams {
+  export interface ResumeOptions {
+    resumeAll?: boolean;
+
+    runIds?: Array<string>;
+
+    workflowVersionIds?: Array<string>;
+  }
+}
+
 export interface TriggerListByWorkflowVersionParams extends PageBasedParams {}
 
 export interface TriggerResumeExecutionParams {
@@ -357,12 +452,14 @@ export declare namespace Triggers {
 	export {
 		type Trigger as Trigger,
 		type TriggerList as TriggerList,
+	  type TriggerIngestResponse as TriggerIngestResponse,
 		type TriggerTriggerByEventResponse as TriggerTriggerByEventResponse,
 		type TriggerTriggerWebhookResponse as TriggerTriggerWebhookResponse,
 		type TriggersPageBased as TriggersPageBased,
 		type TriggerCreateParams as TriggerCreateParams,
 		type TriggerUpdateParams as TriggerUpdateParams,
 		type TriggerListParams as TriggerListParams,
+	  type TriggerIngestParams as TriggerIngestParams,
 		type TriggerListByWorkflowVersionParams as TriggerListByWorkflowVersionParams,
 		type TriggerResumeExecutionParams as TriggerResumeExecutionParams,
 		type TriggerTriggerByEventParams as TriggerTriggerByEventParams,

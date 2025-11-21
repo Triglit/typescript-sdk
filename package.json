@@ -1,6 +1,6 @@
 {
   "name": "triglit",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "description": "The official TypeScript library for the Triglit API",
   "author": "Triglit <suporte@triglit.com>",
   "types": "dist/index.d.ts",

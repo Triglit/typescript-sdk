@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0 (2025-11-21)
+
+Full Changelog: [v0.4.5...v0.5.0](https://github.com/Triglit/typescript-sdk/compare/v0.4.5...v0.5.0)
+
+### Features
+
+* **api:** adiciona endpoint de ingest de eventos ([404d253](https://github.com/Triglit/typescript-sdk/commit/404d25384f67980df3bcda5c7b7db2325e9500d0))
+
 ## 0.4.5 (2025-11-18)
 
 Full Changelog: [v0.4.4...v0.4.5](https://github.com/Triglit/typescript-sdk/compare/v0.4.4...v0.4.5)
