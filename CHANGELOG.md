@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0 (2025-11-23)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/Triglit/typescript-sdk/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **api:** implementa endpoint de alterar status do workflow ([a6ea906](https://github.com/Triglit/typescript-sdk/commit/a6ea90669f3cac9a787f8cf580c6b2cc5f026ac3))
+
 ## 0.5.0 (2025-11-21)
 
 Full Changelog: [v0.4.5...v0.5.0](https://github.com/Triglit/typescript-sdk/compare/v0.4.5...v0.5.0)
