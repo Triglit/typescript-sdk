@@ -64,6 +64,14 @@ export class Workflows extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
+
+  /**
+   * Toggles the active/inactive status of a workflow. If active, becomes inactive;
+   * if inactive, becomes active. Accepts both public and secret keys.
+   */
+  toggleStatus(workflowID: string, options?: RequestOptions): APIPromise<Workflow> {
+    return this._client.patch(path`/v1/gateway/workflows/${workflowID}/toggle-status`, options);
+  }
 }
 
 export type WorkflowsPageBased = PageBased<Workflow>;

@@ -51,6 +51,7 @@ Methods:
 - <code title="patch /v1/gateway/workflows/{workflowId}">client.workflows.<a href="./src/resources/workflows/workflows.ts">update</a>(workflowID, { ...params }) -> Workflow</code>
 - <code title="get /v1/gateway/workflows">client.workflows.<a href="./src/resources/workflows/workflows.ts">list</a>({ ...params }) -> WorkflowsPageBased</code>
 - <code title="delete /v1/gateway/workflows/{workflowId}">client.workflows.<a href="./src/resources/workflows/workflows.ts">delete</a>(workflowID) -> void</code>
+- <code title="patch /v1/gateway/workflows/{workflowId}/toggle-status">client.workflows.<a href="./src/resources/workflows/workflows.ts">toggleStatus</a>(workflowID) -> Workflow</code>
 
 ## Versions
 
