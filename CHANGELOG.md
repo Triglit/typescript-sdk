@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.1 (2025-12-02)
+
+Full Changelog: [v0.6.0...v0.6.1](https://github.com/Triglit/typescript-sdk/compare/v0.6.0...v0.6.1)
+
+### Chores
+
+* **client:** fix logger property type ([e62ff2d](https://github.com/Triglit/typescript-sdk/commit/e62ff2deebe4e28ff240d865ab6e9bc1c43d9717))
+
 ## 0.6.0 (2025-11-23)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/Triglit/typescript-sdk/compare/v0.5.0...v0.6.0)
