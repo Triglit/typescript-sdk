@@ -30,8 +30,16 @@ describe('resource triggers', () => {
     const response = await client.triggers.create({
       config: {
         rateLimit: { maxRequests: 1, windowMs: 1000 },
-        retryPolicy: { backoffMs: 100, maxBackoffMs: 1000, maxRetries: 0 },
-        scheduleConfig: { cron: 'cron', intervalMs: 60000, timezone: 'timezone' },
+        retryPolicy: {
+          backoffMs: 100,
+          maxBackoffMs: 1000,
+          maxRetries: 0,
+        },
+        scheduleConfig: {
+          cron: 'cron',
+          intervalMs: 60000,
+          timezone: 'timezone',
+        },
         timeoutMs: 1000,
         webhookConfig: { event: 'event' },
       },
@@ -124,7 +132,11 @@ describe('resource triggers', () => {
     const response = await client.triggers.ingest({
       event: 'x',
       eventData: { foo: 'bar' },
-      resumeOptions: { resumeAll: true, runIds: ['string'], workflowVersionIds: ['string'] },
+      resumeOptions: {
+        resumeAll: true,
+        runIds: ['string'],
+        workflowVersionIds: ['string'],
+      },
       subTenantId: 'subTenantId',
     });
   });
@@ -167,7 +179,11 @@ describe('resource triggers', () => {
 
   // Prism tests are disabled
   test.skip('resumeExecution: required and optional params', async () => {
-    const response = await client.triggers.resumeExecution({ resumeToken: 'x', runId: 'x', input: {} });
+    const response = await client.triggers.resumeExecution({
+      resumeToken: 'x',
+      runId: 'x',
+      input: {},
+    });
   });
 
   // Prism tests are disabled

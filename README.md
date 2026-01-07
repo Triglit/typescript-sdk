@@ -63,7 +63,12 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 const trigger = await client.triggers
-  .create({ config: {}, name: 'x', type: 'schedule', workflowVersionId: 'x' })
+  .create({
+    config: {},
+    name: 'x',
+    type: 'schedule',
+    workflowVersionId: 'x',
+  })
   .catch(async (err) => {
     if (err instanceof Triglit.APIError) {
       console.log(err.status); // 400
@@ -104,7 +109,12 @@ const client = new Triglit({
 });
 
 // Or, configure per-request:
-await client.triggers.create({ config: {}, name: 'x', type: 'schedule', workflowVersionId: 'x' }, {
+await client.triggers.create({
+  config: {},
+  name: 'x',
+  type: 'schedule',
+  workflowVersionId: 'x',
+}, {
   maxRetries: 5,
 });
 ```
@@ -121,7 +131,12 @@ const client = new Triglit({
 });
 
 // Override per-request:
-await client.triggers.create({ config: {}, name: 'x', type: 'schedule', workflowVersionId: 'x' }, {
+await client.triggers.create({
+  config: {},
+  name: 'x',
+  type: 'schedule',
+  workflowVersionId: 'x',
+}, {
   timeout: 5 * 1000,
 });
 ```
@@ -176,13 +191,23 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 const client = new Triglit();
 
 const response = await client.triggers
-  .create({ config: {}, name: 'x', type: 'schedule', workflowVersionId: 'x' })
+  .create({
+    config: {},
+    name: 'x',
+    type: 'schedule',
+    workflowVersionId: 'x',
+  })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: trigger, response: raw } = await client.triggers
-  .create({ config: {}, name: 'x', type: 'schedule', workflowVersionId: 'x' })
+  .create({
+    config: {},
+    name: 'x',
+    type: 'schedule',
+    workflowVersionId: 'x',
+  })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(trigger.id);

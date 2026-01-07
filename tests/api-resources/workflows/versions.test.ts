@@ -107,7 +107,11 @@ describe('resource versions', () => {
     await expect(
       client.workflows.versions.list0(
         'wf_abc123def456',
-        { isActive: true, page: 0, pageSize: 20 },
+        {
+          isActive: true,
+          page: 0,
+          pageSize: 20,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Triglit.NotFoundError);
