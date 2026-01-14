@@ -120,7 +120,7 @@ export interface Workflow {
 
 export interface WorkflowCreateParams {
   /**
-   * Body param:
+   * Body param
    */
   name: string;
 
@@ -130,7 +130,7 @@ export interface WorkflowCreateParams {
   subTenantId?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   description?: string;
 }
